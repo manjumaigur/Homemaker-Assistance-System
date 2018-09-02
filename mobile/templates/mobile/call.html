@@ -1,0 +1,12 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}Calling{% endblock %}
+
+{% block content_title %}Calling {{ contact.name }}{% endblock %}
+
+{% block content %}
+	{% include 'mobile/messages.html' %}
+	<div class="text-center">
+		<span class="glyphicon glyphicon-earphone" style="font-size: 100pt;"></span>
+	</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}Message{% endblock %}
+
+{% block content_title %}Message {{ contact.name }}{% endblock %}
+
+{% block content %}
+	{% include 'mobile/messages.html' %}
+	<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div>
+			{% include 'mobile/form_template.html' %}
+			<div class="submit-row" style="text-align: left;">
+				<button type="submit" class="btn btn-success">Send Message</button>
+			</div>
+		</div>	
+	</form>
+{% endblock %}

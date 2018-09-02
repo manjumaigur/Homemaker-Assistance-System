@@ -1,0 +1,36 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}Select Contact{% endblock %}
+
+{% block content_title %}Select contact to message{% endblock %}
+
+{% block content %}
+	{% include 'mobile/messages.html' %}
+	<form class="navbar-form text-center" role="search" method="get" action="">
+		<div class="form-group">
+			<input type="text" class="form-control" name="q" value="{{ request.GET.q }}" placeholder="Search contacts" />
+		</div>
+		<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+	</form>
+	<div class="table-responsive">
+		<table class="table table-striped" align="center">
+			<thead>
+				<tr>
+					<th>Name - Phone Number</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for contact in contacts %}
+				<tbody>
+					<tr>
+						<td>
+							<img src="{{ contact.avatar.url }}" alt="{{ contact.name }}" title="{{ contact.name }}" height="20px" />
+							<a href="{% url 'mobile:message' slug=contact.slug %}">{{ contact.name }} - {{ contact.phone_number }}</a>
+						</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

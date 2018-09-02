@@ -1,0 +1,14 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}Delete Contact{% endblock %}
+
+{% block content_title %}Delete Contact{% endblock %}
+
+{% block content %}
+	<p>Are you sure you want to delete "{{ contact }}"?</p>
+	<form method="post">
+		{% csrf_token %}
+		<input type="button" value="Cancel" class="btn btn-success quarterWidth" onclick="window.history.go(-1);" />
+		<input type="submit" value="Confirm" class="btn btn-danger quarterWidth" />
+	</form>
+{% endblock %}

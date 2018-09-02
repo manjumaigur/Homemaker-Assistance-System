@@ -1,0 +1,32 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}{{ contact.name }}{% endblock %}
+
+{% block content_title %}{{ contact.name }}{% endblock %}
+
+{% block content %}
+	{% include 'mobile/messages.html' %}
+	<div class="text-center">
+		<img src="{{ contact.avatar.url }}" alt="{{ contact.name }}" title="{{ contact.name }}" height="100px" class="avatar" />
+	</div>
+	<div class="table-responsive text-center">
+		<table class="table">
+			<tr>
+				<td>Name</td>
+				<td>{{ contact.name }}</td>
+			</tr>
+			<tr>
+				<td>Phone number</td>
+				<td>{{ contact.phone_number }}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="text-center">
+		<a href="{% url 'mobile:edit-contact' contact.slug %}"><button class="btn btn-info quarterWidth"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit Contact</button></a>
+		<form action="{% url 'mobile:delete-contact' contact.slug %}" method="get">
+			{% csrf_token %}
+			<input type="hidden" name="contact_id" value="{{ contactID }}">
+			<button type="submit" class="btn btn-danger quarterWidth"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
+		</form>
+	</div>
+{% endblock %}

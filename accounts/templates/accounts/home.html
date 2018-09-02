@@ -1,0 +1,32 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Homemaker Assistance System{% endblock %}
+
+{% block content_title %}Welcome to Homemaker Assistance System{% endblock %}
+
+{% block content %}
+		<div class="row">
+			<a href="{% url 'mobile:index' %}">
+				<div class="col-sm-6 col-md-6 col-12">
+					<div class="panel homePage" style="background-color: #FF5733;">
+						<div class="panel-body">
+							<span class="glyphicon glyphicon-phone"></span>&nbsp; Mobile
+							<br>
+							<b class="homeBig">Use your mobile</b>	
+						</div>
+					</div>
+				</div>
+			</a>
+			<a href="{% url 'television:index' %}">
+				<div class="col-sm-6 col-md-6 col-12">
+					<div class="panel homePage" style="background-color: #900C3F;">
+						<div class="panel-body">
+							<i class="fa fa-television" aria-hidden="true"></i>&nbsp; Television
+							<br>
+							<b class="homeBig">Control your TV</b>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+{% endblock %}

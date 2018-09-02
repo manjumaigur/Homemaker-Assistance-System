@@ -1,0 +1,14 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}New Contact{% endblock %}
+
+{% block content_title %}New Contact{% endblock %}
+
+{% block content %}
+	{% include 'mobile/messages.html' %}
+	<form action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% include 'mobile/form_template.html' %}
+		<button type="submit" class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Add Contact</button>
+	</form>
+{% endblock %}

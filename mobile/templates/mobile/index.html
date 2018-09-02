@@ -1,0 +1,21 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}Mobile Module{% endblock %}
+
+{% block content_title %}Mobile - 8792623389{% endblock %}
+
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
+{% endblock %}
+
+{% block content %}
+	<div class="col-sm-4 col-md-4 col-xs-4 text-center">
+		<a href="{% url 'mobile:call-select-contact' %}"><button class="btn btn-success"><span class="glyphicon glyphicon-earphone"></span>&nbsp; Call</button></a>
+	</div>
+	<div class="col-sm-4 col-md-4 col-xs-4 text-center">
+		<a href="{% url 'mobile:message-select-contact' %}"><button class="btn btn-primary"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp; Message</button></a>
+	</div>
+	<div class="col-sm-4 col-md-4 col-xs-4 text-center">
+		<a href="{% url 'mobile:all-contacts' %}"><button class="btn btn-info"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp; Contacts</button></a>
+	</div>
+{% endblock %}
