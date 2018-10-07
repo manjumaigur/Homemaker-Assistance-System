@@ -4,6 +4,11 @@
 
 {% block content_title %}Message {{ contact.name }}{% endblock %}
 
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
+    &rsaquo; <a href="{% url 'mobile:message-select-contact' %}">Message</a>
+{% endblock %}
+
 {% block content %}
 	{% include 'mobile/messages.html' %}
 	<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">

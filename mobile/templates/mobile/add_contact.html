@@ -4,6 +4,13 @@
 
 {% block content_title %}New Contact{% endblock %}
 
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
+    &rsaquo; <a href="{% url 'mobile:all-contacts' %}">Contacts</a>
+	&rsaquo; Add contact</a>
+{% endblock %}
+
+
 {% block content %}
 	{% include 'mobile/messages.html' %}
 	<form action="" method="post" enctype="multipart/form-data">

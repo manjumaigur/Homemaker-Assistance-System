@@ -5,10 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 from django.contrib import messages
+from django.http import JsonResponse
+from django.urls import reverse
 from django import forms
 from .models import RPiUser
 from .forms import UserForm, RPiUserForm
-
 # Create your views here.
 
 def landing_page(request):
@@ -61,3 +62,39 @@ def register(request):
 		user_form = UserForm()
 		profile_form = RPiUserForm()
 	return render(request, 'accounts/register.html', {'user_form':user_form, 'profile_form':profile_form})
+
+def voice_recognizer(request):
+	if request.method == 'POST':
+		if request.is_ajax():
+			data = request.POST.get('target')
+			print(data)
+			if data == 'mobile':
+				responseurl = 'mobile:index'
+				slug = ''
+			elif data == 'tv':
+				responseurl = 'television:index'
+				slug = ''
+			elif data == 'contacts':
+				responseurl = 'mobile:all-contacts'
+				slug = ''
+			elif data == 'create contact':
+				responseurl = 'mobile:add-contact'
+				slug = ''
+			elif data.startswith('call'):
+				name = data.split( )
+				if len(name) == 1:
+					responseurl = 'mobile:call-select-contact'
+					slug = ''
+				else:
+					responseurl = '/mobile/call/'
+					slug = name[1]
+					print(slug)
+					return JsonResponse({
+			            'success': True,
+						'url': responseurl+slug,
+					})
+			return JsonResponse({
+	            'success': True,
+				'url': reverse(responseurl)+slug,
+			})
+	return redirect('home')

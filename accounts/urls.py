@@ -8,4 +8,5 @@ urlpatterns = [
 	url(r'^register/$', views.register, name="register"),
 	url(r'^login/$', views.login_view, name="login"),
 	url(r'^logout/$', views.logout_view, name="logout"),
+	url(r'^voice-recognizer/$', views.voice_recognizer, name="voice-recognizer"),
 ]

@@ -4,6 +4,10 @@
 
 {% block content_title %}Select contact to message{% endblock %}
 
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
+{% endblock %}
+
 {% block content %}
 	{% include 'mobile/messages.html' %}
 	<form class="navbar-form text-center" role="search" method="get" action="">

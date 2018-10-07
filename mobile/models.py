@@ -26,7 +26,7 @@ class Message(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	to_contact = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='%(class)s_to_contact')
 	from_contact = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='%(class)s_from_contact',blank=True,null=True)
-	text = models.TextField(max_length=2000,blank=True,null=True)
+	text = models.CharField(max_length=2000,blank=True,null=True)
 	sent_datetime = models.DateTimeField(default=timezone.now)	#status - sending
 	delivered_datetime = models.DateTimeField(default=timezone.now)	#status - delivered
 	received_datetime = models.DateTimeField(default=timezone.now)

@@ -1,0 +1,77 @@
+input[type=text], textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    height: 60px;
+}
+
+label {
+    display: none;
+}
+
+.quarterWidth {
+    width: 25%;
+    margin-top: 0px;
+    padding: 12px;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 15px;
+}
+
+@media screen and (max-width:750px) {
+    .quarterWidth {
+        width: 100%;
+    }
+}
+
+.chatContainer {
+    border: 2px solid #dedede;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 60%;
+}
+
+/* Green chat container */
+.green {
+    border-color: #ccc;
+    background-color: #dcf8c6;
+    float: right;
+}
+
+/* Clear floats */
+.chatContainer::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.chatContainer img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.chatContainer img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+}

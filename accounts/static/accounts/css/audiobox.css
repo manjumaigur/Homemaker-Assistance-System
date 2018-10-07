@@ -1,0 +1,16 @@
+.audioContainer {
+  margin-bottom: 10pt;
+}
+
+.microphone {
+  cursor: pointer;
+  animation: blink 0.8s ease-in-out infinite;
+}
+
+@keyframes blink{
+0%{opacity: 0;}
+25%{opacity: 0.25;color: #1e2440;}
+50%{opacity: .5;color: #1e2440;}
+75%{opacity: 0.75;color: #1e2440;}
+100%{opacity: 1;color: #1e2440;}
+}

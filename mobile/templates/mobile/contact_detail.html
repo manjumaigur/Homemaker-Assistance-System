@@ -4,6 +4,12 @@
 
 {% block content_title %}{{ contact.name }}{% endblock %}
 
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
+    &rsaquo; <a href="{% url 'mobile:all-contacts' %}">Contacts</a>
+    &rsaquo; <a href="{% url 'mobile:contact' slug=contact.slug %}">{{ contact.name }}</a>
+{% endblock %}
+
 {% block content %}
 	{% include 'mobile/messages.html' %}
 	<div class="text-center">
@@ -22,7 +28,9 @@
 		</table>
 	</div>
 	<div class="text-center">
-		<a href="{% url 'mobile:edit-contact' contact.slug %}"><button class="btn btn-info quarterWidth"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit Contact</button></a>
+		<a href="{% url 'mobile:message-select-contact' %}"><button class="btn btn-primary quarterWidth"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp; Message</button></a>
+		<a href="{% url 'mobile:call-select-contact' %}"><button class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-earphone"></span>&nbsp; Call</button></a>
+		<a href="{% url 'mobile:edit-contact' contact.slug %}"><button class="btn btn-info quarterWidth"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit Contact</button></a>	
 		<form action="{% url 'mobile:delete-contact' contact.slug %}" method="get">
 			{% csrf_token %}
 			<input type="hidden" name="contact_id" value="{{ contactID }}">

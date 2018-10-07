@@ -12,3 +12,4 @@ class MessageForm(forms.ModelForm):
 	class Meta:
 		model = Message
 		fields = ['text',]
+		widgets = {'text':forms.TextInput(attrs={'class':'form-control','rows':5,})}

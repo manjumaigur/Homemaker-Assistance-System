@@ -13,5 +13,5 @@ urlpatterns = [
 	url(r'^call/select-contact/$', views.call_select_contact, name="call-select-contact"),
 	url(r'^call/(?P<slug>[\w-]+)/$', views.call, name="call"),
 	url(r'^message/select-contact/$', views.message_select_contact, name="message-select-contact"),
-	url(r'^message/(?P<slug>[\w-]+)/$', views.message, name="message"),
+	url(r'^message/(?P<slug>[\w-]+)/$', views.chatroom, name="message"),
 ]

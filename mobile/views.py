@@ -5,15 +5,18 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.utils.text import slugify
+from django.utils import timezone
 from django.db.models import Q
-from .models import Contact
+from .models import Contact, Message
+from accounts.models import RPiUser
 from .forms import ContactForm, MessageForm
 
 # Create your views here.
 
 @login_required
 def index(request):
-	return render(request, 'mobile/index.html', {})
+	profile = get_object_or_404(RPiUser, user=request.user)
+	return render(request, 'mobile/index.html', {'profile':profile})
 
 @login_required
 def contact_list(request):
@@ -82,8 +85,20 @@ def message_select_contact(request):
 	return render(request, 'mobile/message_select_contact.html', {'contacts':contacts})
 
 @login_required
+def chatroom(request,slug):
+	contact = get_object_or_404(Contact, slug=slug)
+	messages = Message.objects.filter(Q(user=request.user) & (Q(to_contact=contact) | Q(from_contact=contact)))
+	if request.method == 'POST':
+		form = MessageForm(request.POST)
+		if form.is_valid():
+			new_form = form.save(commit=False)
+			return redirect('home')
+	else:		
+		form = MessageForm()
+	return render(request, 'mobile/chatroom.html', {'contact':contact, 'messages':messages, 'form':form})
+
+@login_required
 def message(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
-	form = MessageForm()
-	return render(request, 'mobile/message.html', {'contact':contact,'form':form})
+	
 

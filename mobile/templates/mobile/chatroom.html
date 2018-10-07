@@ -1,0 +1,65 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}Message{% endblock %}
+
+{% block extrahead %}
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'mobile/css/chatroom.css' %}" />
+{% endblock %}
+
+{% block content_title %}{{ contact.name }} - {{ contact.phone_number }}{% endblock %}
+
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
+    &rsaquo; <a href="{% url 'mobile:all-contacts' %}">Contacts</a>
+    &rsaquo; <a href="{% url 'mobile:contact' slug=contact.slug %}">{{ contact.name }}</a>
+    &rsaquo; Message {{ contact.name }}
+{% endblock %}
+
+{% block content %}
+	{% include 'mobile/messages.html' %}
+
+	{% for message in messages %}
+		{% if message.is_incoming %}
+			<div class="chatContainer">
+			  <img src="{{ message.from_contact.avatar.url }}" alt="{{ message.from_contact.name }}">
+			  <p>{{ message.text }}</p>
+			  <span class="time-right">{{ message.received_datetime }}</span>
+			</div>
+		{% else %}
+			<div class="chatContainer green">
+			  <img src="{{ message.from_contact.avatar.url }}" alt="{{ message.from_contact.name }}">
+			  <p>{{ message.text }}</p>
+			  <span class="time-left">{{ message.delivered_datetime }}</span>
+			</div>
+		{% endif %}
+	{% endfor %}
+
+				<div class="chatContainer">
+			  <img src="media/default_avatar.png" alt="pic">
+			  <p>Hi, how are you?</p>
+			  <span class="time-right">8.00PM</span>
+			</div>
+						<div class="chatContainer green" align="right">
+			  <img src="media/default_avatar.png" alt="pic">
+			  <p>I'm fine, you?</p>
+			  <span class="time-left">8.05PM</span>
+			</div>
+									<div class="chatContainer green" align="right">
+			  <img src="media/default_avatar.png" alt="pic">
+			  <p>I'm fine, you?</p>
+			  <span class="time-left">8.05PM</span>
+			</div>
+
+	<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div>
+			{% include 'mobile/form_template.html' %}
+			<div class="submit-row" style="text-align: right;">
+				<button type="reset" class="btn btn-danger quarterWidth">Reset</button>
+				<button type="submit" class="btn btn-success quarterWidth">Send Message</button>
+			</div>
+		</div>	
+	</form>
+
+{% endblock %}
