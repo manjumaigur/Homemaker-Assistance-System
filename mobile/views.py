@@ -36,7 +36,7 @@ def add_contact(request):
 			new_form = form.save(commit=False)
 			new_contact = Contact.objects.create(user = request.user)
 			new_contact.name = form.cleaned_data['name']
-			new_contact.slug = slugify(new_contact.name)
+			new_contact.slug = slugify(new_contact.name+str(request.user))
 			new_contact.phone_number = form.cleaned_data['phone_number']
 			new_contact.avatar = form.cleaned_data['avatar']
 			new_contact.save()
@@ -53,7 +53,7 @@ def edit_contact(request, slug):
 		if form.is_valid():
 			new_form = form.save(commit=False)
 			if contact.name != form.cleaned_data['name']:
-				contact.slug = slugify(form.cleaned_data['name'])
+				contact.slug = slugify(form.cleaned_data['name']+str(request.user))
 			form.save()
 			contact.save()
 			return redirect('mobile:contact', slug=contact.slug)

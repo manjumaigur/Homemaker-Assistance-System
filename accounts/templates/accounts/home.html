@@ -8,7 +8,7 @@
 
 {% block content %}
 		<div class="audioContainer text-center">
-			<i class="fa fa-microphone fa-5x microphone" onclick="startConverting()"></i>
+			<i class="fa fa-microphone fa-5x microphone"></i>
 		</div>
 		<div class="row">
 			<a href="{% url 'mobile:index' %}">
@@ -34,5 +34,4 @@
 				</div>
 			</a>
 		</div>
-		<script type="text/javascript" src="{% static 'accounts/js/tts.js' %}"></script>
 {% endblock %}

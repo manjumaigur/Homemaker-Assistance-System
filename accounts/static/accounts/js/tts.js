@@ -24,11 +24,15 @@ function startConverting () {
       //r.innerHTML = finalTranscripts + '<span style="color:#999">' + interimTranscripts + '</span>';
       console.log(finalTranscripts);
       finalTranscripts = finalTranscripts.toLowerCase();
-      if (finalTranscripts == 'open mobile') {
+      if ((finalTranscripts == 'open home') || (finalTranscripts == 'home') || (finalTranscripts == 'go to home') || (finalTranscripts == 'go home') || (finalTranscripts == 'open homepage') || (finalTranscripts == 'homepage') || (finalTranscripts == 'go to homepage') || (finalTranscripts == 'go homepage')) {
+        finalTranscripts = "home";
+        redirectvoice(finalTranscripts);
+      }      
+      else if (finalTranscripts == 'open mobile') {
         finalTranscripts = finalTranscripts.split(" ");
         redirectvoice(finalTranscripts[1]);
       }
-      else if (finalTranscripts == 'open tv') {
+      else if ((finalTranscripts == 'open tv') || (finalTranscripts == 'open television')) {
         finalTranscripts = finalTranscripts.split(" ");
         redirectvoice(finalTranscripts[1]);
       }
@@ -38,11 +42,11 @@ function startConverting () {
       else if (finalTranscripts == 'message') {
 
       }
-      else if (finalTranscripts == 'open contacts') {
+      else if ((finalTranscripts == 'open contacts') || (finalTranscripts == 'show contacts') || (finalTranscripts == 'open contact') || (finalTranscripts == 'show contact')) {
         finalTranscripts = finalTranscripts.split(" ");
         redirectvoice(finalTranscripts[1]);
       }
-      else if (finalTranscripts == 'create contact') {
+      else if ((finalTranscripts == 'create contact') || (finalTranscripts == 'add contact')) {
         redirectvoice(finalTranscripts);
       }
 

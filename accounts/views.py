@@ -68,7 +68,10 @@ def voice_recognizer(request):
 		if request.is_ajax():
 			data = request.POST.get('target')
 			print(data)
-			if data == 'mobile':
+			if data == 'home':
+				responseurl = 'home'
+				slug = ''
+			elif data == 'mobile':
 				responseurl = 'mobile:index'
 				slug = ''
 			elif data == 'tv':
@@ -77,7 +80,7 @@ def voice_recognizer(request):
 			elif data == 'contacts':
 				responseurl = 'mobile:all-contacts'
 				slug = ''
-			elif data == 'create contact':
+			elif data == 'create contact' or data == 'add contact':
 				responseurl = 'mobile:add-contact'
 				slug = ''
 			elif data.startswith('call'):
@@ -87,7 +90,7 @@ def voice_recognizer(request):
 					slug = ''
 				else:
 					responseurl = '/mobile/call/'
-					slug = name[1]
+					slug = name[1]+str(request.user)
 					print(slug)
 					return JsonResponse({
 			            'success': True,
