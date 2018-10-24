@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 from django.contrib import messages
-from django.http import JsonResponse
 from django.urls import reverse
 from django import forms
 from .models import RPiUser
@@ -25,6 +24,8 @@ def home(request):
 		return redirect('landing-page')
 
 def login_view(request):
+	if request.user.is_authenticated:
+		return redirect('home')
 	if request.method == 'POST':
 	    username = request.POST['username']
 	    password = request.POST['password']
@@ -39,8 +40,11 @@ def login_view(request):
 
 @login_required
 def logout_view(request):
-	logout(request)
-	return render(request, 'accounts/logged_out.html',{})
+	if request.user.is_authenticated:
+		logout(request)
+		return render(request, 'accounts/logged_out.html',{})
+	else:
+		return redirect('landing-page')
 
 def register(request):
 	if request.method == 'POST':
@@ -62,42 +66,3 @@ def register(request):
 		user_form = UserForm()
 		profile_form = RPiUserForm()
 	return render(request, 'accounts/register.html', {'user_form':user_form, 'profile_form':profile_form})
-
-def voice_recognizer(request):
-	if request.method == 'POST':
-		if request.is_ajax():
-			data = request.POST.get('target')
-			print(data)
-			if data == 'home':
-				responseurl = 'home'
-				slug = ''
-			elif data == 'mobile':
-				responseurl = 'mobile:index'
-				slug = ''
-			elif data == 'tv':
-				responseurl = 'television:index'
-				slug = ''
-			elif data == 'contacts':
-				responseurl = 'mobile:all-contacts'
-				slug = ''
-			elif data == 'create contact' or data == 'add contact':
-				responseurl = 'mobile:add-contact'
-				slug = ''
-			elif data.startswith('call'):
-				name = data.split( )
-				if len(name) == 1:
-					responseurl = 'mobile:call-select-contact'
-					slug = ''
-				else:
-					responseurl = '/mobile/call/'
-					slug = name[1]+str(request.user)
-					print(slug)
-					return JsonResponse({
-			            'success': True,
-						'url': responseurl+slug,
-					})
-			return JsonResponse({
-	            'success': True,
-				'url': reverse(responseurl)+slug,
-			})
-	return redirect('home')

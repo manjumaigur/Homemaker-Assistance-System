@@ -4,6 +4,8 @@
 
 {% block content_title %}{{ contact.name }}{% endblock %}
 
+{% block voiceRecognizer %}onload="startConvertingFormData()"{% endblock %}
+
 {% block crumbs %}
     &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
     &rsaquo; <a href="{% url 'mobile:all-contacts' %}">Contacts</a>
@@ -19,7 +21,7 @@
 		<table class="table">
 			<tr>
 				<td>Name</td>
-				<td>{{ contact.name }}</td>
+				<td>{{ contact.original_name }}</td>
 			</tr>
 			<tr>
 				<td>Phone number</td>
@@ -28,13 +30,13 @@
 		</table>
 	</div>
 	<div class="text-center">
-		<a href="{% url 'mobile:message-select-contact' %}"><button class="btn btn-primary quarterWidth"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp; Message</button></a>
-		<a href="{% url 'mobile:call-select-contact' %}"><button class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-earphone"></span>&nbsp; Call</button></a>
+		<a href="{% url 'mobile:message' slug=contact.slug %}"><button class="btn btn-primary quarterWidth"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp; Message</button></a>
+		<a href="{% url 'mobile:call' slug=contact.slug %}"><button class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-earphone"></span>&nbsp; Call</button></a>
 		<a href="{% url 'mobile:edit-contact' contact.slug %}"><button class="btn btn-info quarterWidth"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit Contact</button></a>	
 		<form action="{% url 'mobile:delete-contact' contact.slug %}" method="get">
 			{% csrf_token %}
 			<input type="hidden" name="contact_id" value="{{ contactID }}">
-			<button type="submit" class="btn btn-danger quarterWidth"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
+			<button type="submit" class="btn btn-danger quarterWidth" id="deleteBtn"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
 		</form>
 	</div>
 {% endblock %}

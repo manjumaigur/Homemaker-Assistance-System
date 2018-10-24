@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', landing_page, name='landing-page'),
     url(r'^home/$', home, name='home'),
+    url(r'^audiosystem/', include('audiosystem.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^mobile/', include('mobile.urls')),
     url(r'^television/', include('television.urls')),

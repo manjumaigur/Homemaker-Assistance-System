@@ -12,6 +12,7 @@ import datetime
 class Contact(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	name = models.CharField(max_length=50, default='')
+	original_name = models.CharField(max_length=50, default='')
 	avatar = models.FileField(null=True, default='default_avatar.png', help_text="upload jpg, jpeg, png files only", validators=[FileExtensionValidator(['jpg','png','jpeg'])])
 	phone_number = models.CharField(max_length=13, default='', unique=False)
 	slug = models.SlugField(unique=True, max_length=500)

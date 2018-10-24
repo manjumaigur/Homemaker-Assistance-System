@@ -13,11 +13,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'audiosystem/css/audiobox.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/forms.css' %}">
         {% block extrahead %}{% endblock %}
     </head>
 
-    <body onload="startConverting()">
+    <body {% block voiceRecognizer %}{% endblock %}>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -30,6 +31,9 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="navBar">
+                    <ul class="nav navbar-nav">
+                        <li><i class="fa fa-microphone fa-3x menuMicorphone"></i></li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">Demo</a></li>
                         <li><a href="">Help</a></li>
@@ -54,7 +58,8 @@
                         <hr>
                     </div>
                     <div class="panel-body">
-                         {% block content %}{% endblock %}
+                        {% include 'mobile/messages.html' %}
+                        {% block content %}{% endblock %}
                     </div>
                 </div>
             </div>
@@ -80,6 +85,9 @@
                 </div>  
             </div>
         </footer>
-        <script type="text/javascript" src="{% static 'accounts/js/tts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/tts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/ttsForm.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/select_contacts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/confirmations.js' %}"></script>
     </body>
 </html>

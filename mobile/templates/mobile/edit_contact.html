@@ -4,6 +4,8 @@
 
 {% block content_title %}Edit Contact{% endblock %}
 
+{% block voiceRecognizer %}onload="startConvertingFormData()"{% endblock %}
+
 {% block crumbs %}
     &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
     &rsaquo; <a href="{% url 'mobile:all-contacts' %}">Contacts</a>
@@ -16,11 +18,11 @@
 	<form action="" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		{% include 'mobile/form_template.html' %}
-		<button type="submit" class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-upload"></span>&nbsp; Save</button>
+		<button type="submit" class="btn btn-success quarterWidth" id="submitBtn"><span class="glyphicon glyphicon-upload"></span>&nbsp; Save</button>
 		<form action="{% url 'mobile:delete-contact' contact.slug %}" method="get">
 			{% csrf_token %}
 			<input type="hidden" name="contact_id" value="{{ contactID }}">
-			<button type="submit" class="btn btn-danger quarterWidth"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
+			<button type="submit" class="btn btn-danger quarterWidth" id="deleteBtn"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button>
 		</form>
 	</form>
 {% endblock %}

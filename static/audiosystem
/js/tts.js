@@ -27,7 +27,10 @@ function startConverting () {
       if ((finalTranscripts == 'open home') || (finalTranscripts == 'home') || (finalTranscripts == 'go to home') || (finalTranscripts == 'go home') || (finalTranscripts == 'open homepage') || (finalTranscripts == 'homepage') || (finalTranscripts == 'go to homepage') || (finalTranscripts == 'go homepage')) {
         finalTranscripts = "home";
         redirectvoice(finalTranscripts);
-      }      
+      }
+      else if ((finalTranscripts == "back") || (finalTranscripts== "go back")) {
+        window.history.go(-1);
+      }
       else if (finalTranscripts == 'open mobile') {
         finalTranscripts = finalTranscripts.split(" ");
         redirectvoice(finalTranscripts[1]);
@@ -39,12 +42,22 @@ function startConverting () {
       else if (finalTranscripts.startsWith('call')) {
         redirectvoice(finalTranscripts);
       }
-      else if (finalTranscripts == 'message') {
-
+      else if (finalTranscripts.startsWith('message')) {
+        redirectvoice(finalTranscripts);
       }
-      else if ((finalTranscripts == 'open contacts') || (finalTranscripts == 'show contacts') || (finalTranscripts == 'open contact') || (finalTranscripts == 'show contact')) {
+      else if ((finalTranscripts == 'contacts') || (finalTranscripts == 'open contacts') || (finalTranscripts == 'show contacts') || (finalTranscripts == 'open contact') || (finalTranscripts == 'show contact')) {
+        finalTranscripts = "contacts";
+        redirectvoice(finalTranscripts);
+      }
+      else if ((finalTranscripts.includes("open")||finalTranscripts.includes("show")) && (finalTranscripts.includes("contacts")||finalTranscripts.includes("contact"))) {
         finalTranscripts = finalTranscripts.split(" ");
-        redirectvoice(finalTranscripts[1]);
+        for(var i=0;i<finalTranscripts.length;i++) {
+          if((finalTranscripts[i]!="open")&&(finalTranscripts[i]!="show")&&(finalTranscripts[i]!="contact")&&(finalTranscripts[i]!="contacts")) {
+            console.log(finalTranscripts[i]);
+            redirectvoice("open " + "contact " + finalTranscripts[i]);
+            break;
+          }
+        }
       }
       else if ((finalTranscripts == 'create contact') || (finalTranscripts == 'add contact')) {
         redirectvoice(finalTranscripts);
@@ -82,6 +95,6 @@ function startConverting () {
        }).done(function (data) {
           if (data.success) {
               window.location.href = data.url;
-          }    
+          }   
       });
       }

@@ -4,6 +4,8 @@
 
 {% block content_title %}Contacts{% endblock %}
 
+{% block voiceRecognizer %}onload="selectContacts()"{% endblock %}
+
 {% block crumbs %}
     &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
     &rsaquo; <a href="{% url 'mobile:all-contacts' %}">Contacts</a>
@@ -36,7 +38,7 @@
 						<tr>
 							<td>
 								<img src="{{ contact.avatar.url }}" alt="{{ contact.name }}" title="{{ contact.name }}" height="20px" />
-								<a href="{% url 'mobile:contact' slug=contact.slug %}">{{ contact.name }}</a>
+								<a href="{% url 'mobile:contact' slug=contact.slug %}" class="selectContact">{{ contact.name }}</a>
 							</td>
 							<td>{{ contact.phone_number }}</td>
 							<td><a href="{% url 'mobile:call' slug=contact.slug %}"><button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-earphone"></span></button></a></td>

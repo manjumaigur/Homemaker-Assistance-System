@@ -4,6 +4,8 @@
 
 {% block content_title %}Calling {{ contact.name }}{% endblock %}
 
+{% block voiceRecognizer %}onload="startConverting()"{% endblock %}
+
 {% block crumbs %}
     &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
     &rsaquo; <a href="{% url 'mobile:call-select-contact' %}">Call</a>

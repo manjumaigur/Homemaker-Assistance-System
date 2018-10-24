@@ -24,6 +24,11 @@ def contact_list(request):
 	return render(request, 'mobile/contacts.html', {'contacts':contacts})
 
 @login_required
+def custom_contact_list(request,slug):
+	contacts = Contact.objects.filter(user=request.user,original_name=slug)
+	return render(request, 'mobile/contacts.html', {'contacts':contacts})
+
+@login_required
 def contact_detail(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
 	return render(request, 'mobile/contact_detail.html', {'contact':contact})
@@ -35,7 +40,18 @@ def add_contact(request):
 		if form.is_valid():
 			new_form = form.save(commit=False)
 			new_contact = Contact.objects.create(user = request.user)
-			new_contact.name = form.cleaned_data['name']
+			new_contact.original_name = form.cleaned_data['name'].lower()
+			try:
+				contact_name = Contact.objects.filter(user=request.user, original_name=new_contact.original_name)
+				print(contact_name)
+				no_contacts = contact_name.count()
+				print(no_contacts)
+				if no_contacts>0:
+					new_contact.name = new_contact.original_name + str(no_contacts)
+				else:
+					new_contact.name = new_contact.original_name	
+			except Contact.DoesNotExist:
+				new_contact.name = new_contact.original_name
 			new_contact.slug = slugify(new_contact.name+str(request.user))
 			new_contact.phone_number = form.cleaned_data['phone_number']
 			new_contact.avatar = form.cleaned_data['avatar']
@@ -52,8 +68,20 @@ def edit_contact(request, slug):
 		form = ContactForm(request.POST, request.FILES, instance=contact)
 		if form.is_valid():
 			new_form = form.save(commit=False)
-			if contact.name != form.cleaned_data['name']:
-				contact.slug = slugify(form.cleaned_data['name']+str(request.user))
+			if contact.original_name != form.cleaned_data['name'].lower():
+				contact.original_name = form.cleaned_data['name'].lower()
+				try:
+					contact_name = Contact.objects.filter(user=request.user, original_name=contact.original_name)
+					print(contact_name)
+					no_contacts = contact_name.count()
+					print(no_contacts)
+					if no_contacts>0:
+						contact.name = contact.original_name + str(no_contacts)
+					else:
+						contact.name = contact.original_name
+				except Contact.DoesNotExist:
+					contact.name = contact.original_name
+				contact.slug = slugify(contact.name+str(request.user))
 			form.save()
 			contact.save()
 			return redirect('mobile:contact', slug=contact.slug)

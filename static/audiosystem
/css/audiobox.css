@@ -4,7 +4,11 @@
 
 .microphone {
   cursor: pointer;
-  animation: blink 0.8s ease-in-out infinite;
+}
+
+.menuMicorphone {
+  cursor: pointer;
+  animation: flash 0.8s ease-in-out infinite; 
 }
 
 @keyframes blink{
@@ -13,4 +17,12 @@
 50%{opacity: .5;color: #1e2440;}
 75%{opacity: 0.75;color: #1e2440;}
 100%{opacity: 1;color: #1e2440;}
+}
+
+@keyframes flash{
+0%{opacity: 0;}
+25%{opacity: 0.25;color: #fff;}
+50%{opacity: .5;color: #fff;}
+75%{opacity: 0.75;color: #fff;}
+100%{opacity: 1;color: #fff;}
 }

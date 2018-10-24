@@ -4,6 +4,8 @@
 
 {% block content_title %}Mobile - {{ profile.mobile_no }}{% endblock %}
 
+{% block voiceRecognizer %}onload="startConverting()"{% endblock %}
+
 {% block crumbs %}
     &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>
 {% endblock %}
