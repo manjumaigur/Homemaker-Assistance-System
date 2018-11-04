@@ -8,3 +8,26 @@ from django.utils import timezone
 import datetime
 
 # Create your models here.
+
+class Brand(models.Model):
+	name = models.CharField(max_length=100, default='')
+	slug = models.SlugField(unique=True, max_length=500)	#slug=name
+
+	def __str__(self):
+		return self.name
+
+class Remote(models.Model):
+	user = models.ManyToManyField(settings.AUTH_USER_MODEL)
+	brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+	model = models.CharField(max_length=100, default='')
+	description = models.TextField(default='')
+	REMOTE_TYPES = (
+		('t', 'television'),
+		('s', 'setup-box'),
+	)
+	remote_type = models.CharField(max_length=1, default='s', choices=REMOTE_TYPES, blank=False, null=True)
+	remotes_in_use = models.IntegerField(default=0)
+	slug = models.SlugField(unique=True, max_length=500)  #slug=brand-model
+
+	def __str__(self):
+		return str(self.brand) + "-" + self.model

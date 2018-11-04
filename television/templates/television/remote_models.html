@@ -1,0 +1,37 @@
+{% extends 'television/base.html' %}
+
+{% block title %}Television Module{% endblock %}
+
+{% block content_title %}Available {{ brand.name }} Remotes{% endblock %}
+
+{% block voiceRecognizer %}onload="startConverting()"{% endblock %}
+
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'television:index' %}">Television</a>
+    &rsaquo; <a href="{% url 'television:brands' %}">Brands</a>
+    &rsaquo; <a href="{% url 'television:remote-models' slug=brand.slug %}">{{ brand.name }} Remote Models</a>
+{% endblock %}
+
+{% block content %}
+	{% include 'television/messages.html' %}
+	<div class="table-responsive">
+		<table class="table table-striped" align="center">
+			<thead>
+				<tr>
+					<th>Remote Name</th>
+				</tr>	
+			</thead>
+			<tbody>
+				{% for model in models %}
+				<tbody>
+					<tr>
+						<td>
+							<a href="{% url 'television:remote-detail' slug=model.slug %}">{{ model }}</a>
+						</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

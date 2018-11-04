@@ -1,0 +1,50 @@
+{% extends 'television/base.html' %}
+
+{% block title %}Television Module{% endblock %}
+
+{% block content_title %}{{ remote }}{% endblock %}
+
+{% block voiceRecognizer %}onload="startConverting()"{% endblock %}
+
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'television:index' %}">Television</a>
+    &rsaquo; <a href="{% url 'television:brands' %}">Brands</a>
+    &rsaquo; <a href="{% url 'television:remote-models' slug=remote.brand.slug %}">{{ remote.brand.name }} Remote Models</a>
+    &rsaquo; <a href="{% url 'television:remote-detail' slug=remote.slug %}">{{ remote.model }}</a>
+{% endblock %}
+
+{% block content %}
+	{% include 'television/messages.html' %}
+	<div class="table-responsive">
+		<table class="table table-striped" align="center">
+			<thead>
+				<tr>
+					<th>Remote information</th>
+				</tr>
+			</thead>	
+			<tbody>
+				<tr>
+					<th>Brand: </th><td>{{ remote.brand }}</td>
+				</tr>
+				<tr>
+					<th>Model: </th><td>{{ remote.model }}</td>
+				</tr>
+				<tr>
+					<th>Description: </th><td>{{ remote.description }}</td>
+				</tr>
+				<tr>
+					<th>Compatible: </th><td>{{ remote.get_remote_type_display|title }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	{% if flag %}
+		<div class="text-center">
+			<a href="{% url 'television:remote-area' slug=remote.slug %}"><button class="btn btn-info"><span class="glyphicon glyphicon-menu-right"></span>&nbsp; Use remote</button></a>
+		</div>
+	{% else %}
+		<div class="text-center">
+			<a href="{% url 'television:remote-add' slug=remote.slug %}"><button class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Add remote to my account</button></a>
+		</div>
+	{% endif %}
+{% endblock %}

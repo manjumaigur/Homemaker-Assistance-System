@@ -1,0 +1,39 @@
+{% extends 'television/base.html' %}
+
+{% block title %}Television Module{% endblock %}
+
+{% block content_title %}Select Brands{% endblock %}
+
+{% block voiceRecognizer %}onload="startConverting()"{% endblock %}
+
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'television:index' %}">Television</a>
+    &rsaquo; <a href="{% url 'television:brands' %}">Brands</a>
+{% endblock %}
+
+{% block content %}
+	{% include 'television/messages.html' %}
+	<div class="table-responsive">
+		<table class="table table-striped" align="center">
+			<thead>
+				<tr>
+					<th>Brand Name</th>
+				</tr>	
+			</thead>
+				<tbody>
+					{% for brand in brands %}
+					<tbody>
+						<tr>
+							<td>
+								<a href="{% url 'television:remote-models' slug=brand.slug %}">{{ brand.name }}</a>
+							</td>
+							<td>
+								<a href="{% url 'television:remote-models' slug=brand.slug %}"><button class="btn btn-info btn-sm"><span class="glyphicon glyphicon-menu-right"></span>&nbsp; See remotes</button></a>
+							</td>
+						</tr>
+					</tbody>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% endblock %}

@@ -2,11 +2,38 @@
 
 {% block title %}Television Module{% endblock %}
 
-{% block content_title %}Remotes{% endblock %}
+{% block content_title %}Remotes <a href="{% url 'television:brands' %}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Add Remote</button></a>{% endblock %}
 
 {% block voiceRecognizer %}onload="startConverting()"{% endblock %}
 
+{% block crumbs %}
+    &rsaquo; <a href="{% url 'television:index' %}">Television</a>
+{% endblock %}
+
 {% block content %}
-
-
+	{% include 'television/messages.html' %}
+	{% if remotes.count != 0 %}
+		<div class="table-responsive">
+			<table class="table table-striped" align="center">
+				<thead>
+					<tr>
+						<th>Remote Name</th>
+					</tr>	
+				</thead>
+				<tbody>
+					{% for remote in remotes %}
+					<tbody>
+						<tr>
+							<td>
+								<a href="{% url 'television:remote-detail' slug=remote.slug %}">{{ remote }}</a>
+							</td>
+						</tr>
+					</tbody>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+		<div>No remotes in your account. Start adding remotes now!</div>
+	{% endif %}
 {% endblock %}
