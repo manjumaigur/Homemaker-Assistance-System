@@ -42,6 +42,7 @@ function incoming_call(flag,number,name,photo) {
       userPic.src = "http://localhost:8000/media/default_avatar.png";
       username.innerHTML = number;
     }
+    check_call_connection();
     $('#declineBtn').on('click', function(e) {
       $('.call').toggleClass('is-declined');
       abort_call();
