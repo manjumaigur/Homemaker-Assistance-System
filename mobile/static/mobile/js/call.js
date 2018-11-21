@@ -44,13 +44,11 @@ function incoming_call(flag,number,name,photo) {
     }
     check_call_connection();
     $('#declineBtn').on('click', function(e) {
-      $('.call').toggleClass('is-declined');
       abort_call();
       return e.preventDefault();
     });
 
     $('#abortBtn').on('click', function(e) {
-      $('.call').toggleClass('is-declined');
       abort_call();
       return e.preventDefault();
     });
@@ -72,7 +70,6 @@ function incoming_call(flag,number,name,photo) {
             check_call_connection();
           }
           else {
-            $('.call').toggleClass('is-declined');
             modal.style.display = "none";
             check_incoming_call();
           }
