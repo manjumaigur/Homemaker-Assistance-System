@@ -33,6 +33,8 @@ var abortBtn = document.getElementById('abortBtn');
 
 function incoming_call(flag,number,name,photo) {
     modal.style.display = "block";
+    declineBtn.style.display = "block";
+    acceptBtn.style.display = "block";
     abortBtn.style.display = "none";
     if (flag) {
       userPic.src = "http:localhost"+photo;
