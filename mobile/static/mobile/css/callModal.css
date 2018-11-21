@@ -2,11 +2,195 @@
   margin-top: 60px;
 }
 
-.call-body {
-  width: 400px;
-  height: 400px;
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,300);
+@keyframes calling {
+  from {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  to {
+    background: rgba(255, 255, 255, 0.9);
+  }
+}
+@keyframes calling2 {
+  to {
+    border-color: red;
+  }
+}
+@keyframes declined {
+  to {
+    -webkit-filter: grayscale(0.1) blur(1px) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.7));
+    -moz-filter: grayscale(0.1) blur(1px) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.7));
+    opacity: .5;
+  }
+}
+@keyframes go {
+  0% {
+    opacity: .5;
+  }
+  95% {
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+.call {
+  width: 300px;
+  height: 330px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   margin: auto;
-  background-color: #425062;
-  border: solid 1px #3A4655;
-  box-shadow: 0 8px 50px -7px black;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: #9b00c1;
+}
+.call.is-declined {
+  animation: declined .4s forwards, go .3s .8s forwards;
+}
+.call.is-declined .circle {
+  background: rgba(255, 255, 255, 0.1);
+}
+.call.is-declined .user-photo__wrap, .call.is-declined .circle {
+  animation-play-state: paused;
+}
+.call.is-accepted header > h1 {
+  opacity: 0;
+}
+.call.is-accepted .circle {
+  opacity: 0;
+  animation-play-state: paused;
+}
+.call.is-accepted .user-photo__wrap {
+  border: none;
+  animation-play-state: paused;
+}
+.call.is-accepted .user-photo__wrap > img {
+  transform: scale(1.2);
+}
+
+header {
+  position: relative;
+  padding: 15px;
+  margin-bottom: 2px;
+  background: #3A4655;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 1px solid #d10eff;
+  text-align: center;
+}
+header > h1 {
+  font-size: 1.2em;
+  text-shadow: 0px 1px 1px #444;
+  color: white;
+  font-weight: 100;
+}
+header .header-close {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  opacity: .4;
+  color: #72008e;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+header .header-close:hover {
+  opacity: 1;
+}
+
+main {
+  height: 280px;
+  border: 1px solid #d528ff;
+  background: #3A4655;
+}
+
+.user {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.user-photo {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  margin: 0 auto;
+  border-radius: 100%;
+  background: #8700a7;
+  box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.8), inset 1px 1px 1px rgba(0, 0, 0, 0.3), inset -1px -1px 1px rgba(0, 0, 0, 0.3), inset 2px 2px 1px rgba(0, 0, 0, 0.3), inset 1px 3px 1px rgba(0, 0, 0, 0.3);
+}
+
+.user-photo__wrap {
+  background: #d10eff;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 5px solid #d10eff;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.6);
+  animation: calling2 1.3s linear infinite;
+}
+.user-photo__wrap > img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transition: transform .2s;
+}
+
+.user-name {
+  margin: 15px 0;
+  text-align: center;
+  color: white;
+  text-shadow: 0px 1px 1px #444;
+}
+
+.status {
+  width: 100px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+}
+.status .circle {
+  float: left;
+  margin-right: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: calling 1s backwards infinite;
+}
+.status .circle:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.status .circle:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.status .circle:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.status .circle:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.status .circle:nth-child(5) {
+  animation-delay: 1s;
+}
+.status .circle.last {
+  margin-right: 0;
+}
+
+.buttons {
+  width: 90%;
+  margin: 20px auto;
+}
+.buttons .col {
+  width: 50%;
+  float: left;
 }

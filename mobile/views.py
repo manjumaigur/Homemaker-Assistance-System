@@ -11,7 +11,7 @@ from django.db.models import Q
 from .models import Contact, Message
 from accounts.models import RPiUser
 from .forms import ContactForm, MessageForm
-from .scripts import check_incoming_call
+from .scripts import call
 
 # Create your views here.
 
@@ -33,6 +33,7 @@ def custom_contact_list(request,slug):
 @login_required
 def contact_detail(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
+	contact_photo = contact_details.
 	return render(request, 'mobile/contact_detail.html', {'contact':contact})
 
 @login_required
@@ -133,7 +134,51 @@ def message(request,slug):
 
 @login_required
 def incoming_call_check(request):
-	call_coming = check_incoming_call.incoming_call()
+	call_coming = call.incoming_call()
+	if call_coming:
+		incoming_number = call_coming[3:]
+		try:
+			contact_details = Contact.objects.get(user=request.user, phone_number=incoming_number)
+			call_coming = True
+			contact_in_phonebook = True
+			contact_name = contact_details.name
+			contact_number = contact_details.phone_number
+			contact_photo = contact_details.avatar.url
+		except Contact.DoesNotExist:
+			contact_number = call_coming
+			call_coming = True
+			contact_in_phonebook = False
+			contact_name = ''
+			contact_photo = ''
 	return JsonResponse({
 		'call_coming': call_coming,
+		'contact_in_phonebook': contact_in_phonebook,
+		'contact_name': contact_name,
+		'contact_number': contact_number
+		'contact_photo': contact_photo
+	})
+
+@login_required
+def receive_call(request):
+	flag = call.receive_call()
+	return JsonResponse({
+		'success':flag
+	})
+
+@login_required
+def abort_call(request):
+	flag = call.abort_call()
+	return JsonResponse({
+		'success':flag
+	})
+
+@login_required
+def check_call_connection(request):
+	flag = call.check_call_connection()
+	if flag:
+		connected = False
+	else:
+		connected = True
+	return JsonResponse({
+		'connected':connected
 	})

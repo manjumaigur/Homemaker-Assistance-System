@@ -16,7 +16,7 @@ function check_incoming_call(){
     url: "http://localhost:8000/mobile/check_incoming_call/",
     }).done(function (data) {
       if (data.call_coming) {
-        incoming_call();
+        incoming_call(data.contact_in_phonebook,data.contact_number,data.contact_name,data.contact_photo);
       }   
       else {
         check_incoming_call();
@@ -25,7 +25,82 @@ function check_incoming_call(){
 }
 
 var modal = document.getElementById('callModal');
+var userPic = document.getElementById('userPic');
+var username = document.getElementById('user-name');
+var declineBtn = document.getElementById('declineBtn');
+var acceptBtn = document.getElementById('acceptBtn');
+var abortBtn = document.getElementById('abortBtn');
 
-function incoming_call() {
+function incoming_call(flag,number,name,photo) {
     modal.style.display = "block";
+    if (flag) {
+      userPic.src = "http:localhost"+photo;
+      username.innerHTML= name+": "+number;
+    }
+    else {
+      userPic.src = "http:localhost/media/default_avatar.png";
+      username.innerHTML = number;
+    }
+    $('#declineBtn').on('click', function(e) {
+      $('.call').toggleClass('is-declined');
+      abort_call();
+      return e.preventDefault();
+    });
+
+    $('#abortBtn').on('click', function(e) {
+      $('.call').toggleClass('is-declined');
+      abort_call();
+      return e.preventDefault();
+    });
+
+    $('#acceptBtn').on('click', function(e) {
+      $('.call').toggleClass('is-accepted');
+      receive_call();
+      return e.preventDefault();
+    });
+    function receive_call(){
+      $.ajax({
+        type: 'GET',
+        url: "http://localhost:8000/mobile/receive_call/",
+        }).done(function (data) {
+          if (data.success) {
+            declineBtn.style.display = "none";
+            acceptBtn.style.display = "none";
+            abortBtn.style.display = "block";
+            check_call_connection();
+          }
+          else {
+            $('.call').toggleClass('is-declined');
+            check_incoming_call();
+          }
+      });
+    }
+
+    function abort_call(){
+      $.ajax({
+        type: 'GET',
+        url: "http://localhost:8000/mobile/abort_call/",
+        }).done(function (data) {
+          if (data.success) {
+            check_incoming_call(); 
+          }
+          else {
+            check_incoming_call();
+          }
+      });
+    }
+    function check_call_connection(){
+      $.ajax({
+        type: 'GET',
+        url: "http://localhost:8000/mobile/check_call_connection/",
+        }).done(function (data) {
+          if (data.connected) {
+            check_call_connection(); 
+          }
+          else {
+            $('.call').toggleClass('is-declined');
+            check_incoming_call();
+          }
+      });
+    }
 }
