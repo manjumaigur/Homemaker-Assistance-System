@@ -134,6 +134,10 @@ def message(request,slug):
 @login_required
 def incoming_call_check(request):
 	call_coming = call_functions.incoming_call()
+	contact_in_phonebook = False
+	contact_name = ''
+	contact_number = call_coming
+	contact_photo = ''
 	if call_coming:
 		incoming_number = call_coming[3:]
 		try:
@@ -144,11 +148,7 @@ def incoming_call_check(request):
 			contact_number = contact_details.phone_number
 			contact_photo = contact_details.avatar.url
 		except Contact.DoesNotExist:
-			contact_number = call_coming
 			call_coming = True
-			contact_in_phonebook = False
-			contact_name = ''
-			contact_photo = ''
 	return JsonResponse({
 		'call_coming': call_coming,
 		'contact_in_phonebook': contact_in_phonebook,
@@ -174,6 +174,7 @@ def abort_call(request):
 @login_required
 def check_call_connection(request):
 	flag = call_functions.check_call_connection()
+	connected = False
 	if flag:
 		connected = False
 	else:
