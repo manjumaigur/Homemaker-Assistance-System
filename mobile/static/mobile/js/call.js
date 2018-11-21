@@ -37,15 +37,15 @@ function incoming_call(flag,number,name,photo) {
     acceptBtn.style.display = "block";
     abortBtn.style.display = "none";
     if (flag) {
-      userPic.src = "http:localhost"+photo;
+      userPic.src = "http://localhost:8000"+photo;
       username.innerHTML= name+": "+number;
     }
     else {
-      userPic.src = "http://localhost:8000/media/default_avatar.png";
+      userPic.src = "media/default_avatar.png";
       username.innerHTML = number;
     }
     check_call_connection();
-    
+
     $('#declineBtn').on('click', function(e) {
       abort_call();
       return e.preventDefault();
