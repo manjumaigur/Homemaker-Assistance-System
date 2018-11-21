@@ -11,7 +11,7 @@ from django.db.models import Q
 from .models import Contact, Message
 from accounts.models import RPiUser
 from .forms import ContactForm, MessageForm
-from .scripts import call
+from .scripts import call_functions
 
 # Create your views here.
 
@@ -133,7 +133,7 @@ def message(request,slug):
 
 @login_required
 def incoming_call_check(request):
-	call_coming = call.incoming_call()
+	call_coming = call_functions.incoming_call()
 	if call_coming:
 		incoming_number = call_coming[3:]
 		try:
@@ -159,21 +159,21 @@ def incoming_call_check(request):
 
 @login_required
 def receive_call(request):
-	flag = call.receive_call()
+	flag = call_functions.receive_call()
 	return JsonResponse({
 		'success':flag
 	})
 
 @login_required
 def abort_call(request):
-	flag = call.abort_call()
+	flag = call_functions.abort_call()
 	return JsonResponse({
 		'success':flag
 	})
 
 @login_required
 def check_call_connection(request):
-	flag = call.check_call_connection()
+	flag = call_functions.check_call_connection()
 	if flag:
 		connected = False
 	else:
