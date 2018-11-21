@@ -37,8 +37,9 @@ def receive_call():
 def abort_call():
 	GPIO.setmode(GPIO.BOARD)
 	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
-	port.write("ATH1\r".encode())
+	port.write("ATH0\r".encode())
 	data = port.read(12)
+	print(data)
 	aborted=str(data).find("OK")
 	if aborted>=0:
 		port.close()
