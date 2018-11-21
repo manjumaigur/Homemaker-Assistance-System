@@ -153,7 +153,7 @@ def incoming_call_check(request):
 		'call_coming': call_coming,
 		'contact_in_phonebook': contact_in_phonebook,
 		'contact_name': contact_name,
-		'contact_number': contact_number
+		'contact_number': contact_number,
 		'contact_photo': contact_photo
 	})
 
