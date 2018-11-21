@@ -33,12 +33,13 @@ var abortBtn = document.getElementById('abortBtn');
 
 function incoming_call(flag,number,name,photo) {
     modal.style.display = "block";
+    abortBtn.style.display = "none";
     if (flag) {
       userPic.src = "http:localhost"+photo;
       username.innerHTML= name+": "+number;
     }
     else {
-      userPic.src = "http:localhost/media/default_avatar.png";
+      userPic.src = "http://localhost:8000/media/default_avatar.png";
       username.innerHTML = number;
     }
     $('#declineBtn').on('click', function(e) {
@@ -71,6 +72,7 @@ function incoming_call(flag,number,name,photo) {
           }
           else {
             $('.call').toggleClass('is-declined');
+            modal.style.display = "none";
             check_incoming_call();
           }
       });
@@ -82,7 +84,9 @@ function incoming_call(flag,number,name,photo) {
         url: "http://localhost:8000/mobile/abort_call/",
         }).done(function (data) {
           if (data.success) {
-            check_incoming_call(); 
+            modal.style.display = "none";
+            abortBtn.style.display = "none";
+            check_incoming_call();
           }
           else {
             check_incoming_call();
@@ -99,6 +103,8 @@ function incoming_call(flag,number,name,photo) {
           }
           else {
             $('.call').toggleClass('is-declined');
+            modal.style.display = "none";
+            abortBtn.style.display = "none";
             check_incoming_call();
           }
       });
