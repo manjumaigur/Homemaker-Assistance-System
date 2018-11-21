@@ -1,0 +1,12 @@
+#callModal {
+  margin-top: 60px;
+}
+
+.call-body {
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  background-color: #425062;
+  border: solid 1px #3A4655;
+  box-shadow: 0 8px 50px -7px black;
+}

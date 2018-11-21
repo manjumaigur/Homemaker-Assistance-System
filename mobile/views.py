@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,7 @@ from django.db.models import Q
 from .models import Contact, Message
 from accounts.models import RPiUser
 from .forms import ContactForm, MessageForm
+from .scripts import check_incoming_call
 
 # Create your views here.
 
@@ -128,5 +130,10 @@ def chatroom(request,slug):
 @login_required
 def message(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
-	
 
+@login_required
+def incoming_call_check(request):
+	call_coming = check_incoming_call.incoming_call()
+	return JsonResponse({
+		'call_coming': call_coming,
+	})

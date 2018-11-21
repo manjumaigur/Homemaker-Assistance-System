@@ -15,6 +15,8 @@
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/base.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'audiosystem/css/audiobox.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/forms.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/keyboard.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/callModal.css' %}">
         {% block extrahead %}{% endblock %}
     </head>
 
@@ -49,6 +51,10 @@
                 {% endblock %}
             </div>
         {% endblock %}
+
+        <div id="callModal" class="modal">
+            {% include 'mobile/call_modal.html' %}
+        </div>
 
         <div class="container-fluid">
             <div class="row">
@@ -89,5 +95,7 @@
         <script type="text/javascript" src="{% static 'audiosystem/js/ttsForm.js' %}"></script>
         <script type="text/javascript" src="{% static 'audiosystem/js/select_contacts.js' %}"></script>
         <script type="text/javascript" src="{% static 'audiosystem/js/confirmations.js' %}"></script>
+        <script type="text/javascript" src="{% static 'mobile/js/keyboard.js' %}"></script>
+        <script type="text/javascript" src="{% static 'mobile/js/call.js' %}"></script>
     </body>
 </html>

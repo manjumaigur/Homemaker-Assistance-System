@@ -13,6 +13,7 @@ urlpatterns = [
 	url(r'^contact/(?P<slug>[\w-]+)/$', views.contact_detail, name="contact"),
 	url(r'^call/select-contact/$', views.call_select_contact, name="call-select-contact"),
 	url(r'^call/(?P<slug>[\w-]+)/$', views.call, name="call"),
+	url(r'^check_incoming_call/$', views.incoming_call_check, name='check-incoming-call'),
 	url(r'^message/select-contact/$', views.message_select_contact, name="message-select-contact"),
 	url(r'^message/(?P<slug>[\w-]+)/$', views.chatroom, name="message"),
 ]
