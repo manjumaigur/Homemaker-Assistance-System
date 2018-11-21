@@ -103,7 +103,6 @@ function incoming_call(flag,number,name,photo) {
             check_call_connection(); 
           }
           else {
-            $('.call').toggleClass('is-declined');
             modal.style.display = "none";
             abortBtn.style.display = "none";
             check_incoming_call();
