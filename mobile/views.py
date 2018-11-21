@@ -33,7 +33,6 @@ def custom_contact_list(request,slug):
 @login_required
 def contact_detail(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
-	contact_photo = contact_details.
 	return render(request, 'mobile/contact_detail.html', {'contact':contact})
 
 @login_required
