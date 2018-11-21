@@ -45,6 +45,7 @@ function incoming_call(flag,number,name,photo) {
       username.innerHTML = number;
     }
     check_call_connection();
+    
     $('#declineBtn').on('click', function(e) {
       abort_call();
       return e.preventDefault();
