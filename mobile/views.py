@@ -136,7 +136,7 @@ def send_sms_ajax(request):
 	return JsonResponse({
 	    'success': success,
 	})
-	
+
 @login_required
 def message(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
@@ -186,6 +186,10 @@ def incoming_call_sms_check(request):
 			'contact_photo': contact_photo,
 			'smsSlug': contact_details.slug,
 		})
+	else:
+		return JsonResponse({
+			'call_coming':False
+			})
 
 @login_required
 def receive_call(request):
