@@ -123,7 +123,6 @@ def save_message(module_user):
 		store_msg.text = msg_content
 		store_msg.is_incoming = True
 		store_msg.is_outgoing = False
-		store_msg.received_datetime = (msg[1].split(","))[3]
 		from_contact = msg_details[1:len(msg_details)-1]
 		from_contact = from_contact[3:]
 		contact_in_phonebook = False
