@@ -2,7 +2,7 @@ import serial
 import RPi.GPIO as GPIO
 import os,time
 from django.contrib.auth.models import User
-from mobile.accounts import RPiUser
+from accounts.models import RPiUser
 from mobile.models import Message
 
 def incoming_call_sms(module_user):
