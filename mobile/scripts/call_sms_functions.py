@@ -85,6 +85,7 @@ def send_sms(module_user,mobile_number,text):
 	print("3")
 	time.sleep(1)
 	port.write('\x1A'.encode())
+	time.sleep(1)
 	print('sending.....')
 	while True:
 		data = port.read(40)
