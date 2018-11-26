@@ -153,6 +153,7 @@ def incoming_call_sms_check(request):
 		contact_name = ''
 		contact_photo = ''
 		contact_number = ''
+		contact_details=''
 		if call_sms_coming[0]=="CALL":
 			contact_number = call_sms_coming[1]
 			incoming_number = contact_number[3:]
