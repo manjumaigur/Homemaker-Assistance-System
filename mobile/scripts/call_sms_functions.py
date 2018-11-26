@@ -75,19 +75,13 @@ def check_call_connection():
 def send_sms(module_user,mobile_number,text):
 	GPIO.setmode(GPIO.BOARD)
 	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
-	port.write("AT+CMGF=1".encode())
-	print("1")
-	time.sleep(1)
 	sms='AT+CMGS="'+mobile_number+'"\r'
 	port.write(sms.encode())
-	print("2")
 	time.sleep(2)
+	data=port.read(60)
 	port.write(text.encode())
-	print("3")
 	time.sleep(1)
 	port.write('\x1A'.encode())
-	time.sleep(1)
-	print('sending.....')
 	while True:
 		data = port.read(40)
 		flag = str(data).find("+CMGS:")
