@@ -7,6 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'mobile/css/chatroom.css' %}" />
 {% endblock %}
 
+{% block voiceRecognizer %}onload="check_incoming_call_sms()"{% endblock %}
+
 {% block content_title %}{{ contact.name }} - {{ contact.phone_number }}{% endblock %}
 
 {% block crumbs %}

@@ -122,7 +122,17 @@ def chatroom(request,slug):
 		form = MessageForm(request.POST)
 		if form.is_valid():
 			new_form = form.save(commit=False)
-			return redirect('home')
+			local_user = RPiUser.objects.get(user=request.user)
+			from_contact = Contact.objects.get(user=request.user, phone_number=local_user.mobile_no)
+			to_contact = get_object_or_404(Contact, slug=slug)
+			new_message = Message.objects.create(user=request.user,from_contact=from_contact)
+			new_message.text = form.cleaned_data['text']
+			new_message.to_contact = to_contact
+			new_message.unknown_contact = False
+			new_message.save()
+			flag = call_sms_functions.send_sms(to_contact.phone_number,new_message.text)
+			if flag:
+				return redirect("mobile:message", slug=slug)
 	else:		
 		form = MessageForm()
 	return render(request, 'mobile/chatroom.html', {'contact':contact, 'messages':messages, 'form':form})
