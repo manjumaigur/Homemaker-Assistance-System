@@ -30,26 +30,10 @@
 			<div class="chatContainer green">
 			  <img src="{{ message.from_contact.avatar.url }}" alt="{{ message.from_contact.name }}">
 			  <p>{{ message.text }}</p>
-			  <span class="time-left">{{ message.delivered_datetime }}</span>
+			  <span class="time-left">{{ message.received_datetime }}</span>
 			</div>
 		{% endif %}
 	{% endfor %}
-
-				<div class="chatContainer">
-			  <img src="media/default_avatar.png" alt="pic">
-			  <p>Hi, how are you?</p>
-			  <span class="time-right">8.00PM</span>
-			</div>
-						<div class="chatContainer green" align="right">
-			  <img src="media/default_avatar.png" alt="pic">
-			  <p>I'm fine, you?</p>
-			  <span class="time-left">8.05PM</span>
-			</div>
-									<div class="chatContainer green" align="right">
-			  <img src="media/default_avatar.png" alt="pic">
-			  <p>I'm fine, you?</p>
-			  <span class="time-left">8.05PM</span>
-			</div>
 
 	<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 		{% csrf_token %}

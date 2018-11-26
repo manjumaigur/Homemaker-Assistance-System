@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/forms.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/keyboard.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/callModal.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'mobile/css/smsModal.css' %}">
         {% block extrahead %}{% endblock %}
     </head>
 
@@ -54,6 +55,10 @@
 
         <div id="callModal" class="modal">
             {% include 'mobile/call_modal.html' %}
+        </div>
+
+        <div id="smsModal" class="modal">
+            {% include 'mobile/sms_modal.html' %}
         </div>
 
         <div class="container-fluid">
@@ -96,6 +101,6 @@
         <script type="text/javascript" src="{% static 'audiosystem/js/select_contacts.js' %}"></script>
         <script type="text/javascript" src="{% static 'audiosystem/js/confirmations.js' %}"></script>
         <script type="text/javascript" src="{% static 'mobile/js/keyboard.js' %}"></script>
-        <script type="text/javascript" src="{% static 'mobile/js/call.js' %}"></script>
+        <script type="text/javascript" src="{% static 'mobile/js/call_sms.js' %}"></script>
     </body>
 </html>

@@ -35,6 +35,7 @@ class Message(models.Model):
 	is_outgoing = models.BooleanField(default=True)
 	is_replied = models.BooleanField(default=False)
 	unknown_contact = models.BooleanField(default=True)
+	unknown_mobile = models.CharField(max_length=13, default='', unique=False,blank=True)
 	STATUS_CHOICES = (
 		('s', 'sending'),
 		('d', 'delivered'),		#equivalent to sent and if delivered then status is successful
@@ -42,9 +43,8 @@ class Message(models.Model):
 		('f', 'fail'),
 	)
 	status = models.CharField(max_length=1, default='s', choices=STATUS_CHOICES, blank=False, null=True)
-
 	def __str__(self):
-		return str(self.to_contact)
+		return str(self.from_contact+self.to_contact)
 
 class Call(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

@@ -4,7 +4,7 @@
 
 {% block content_title %}Mobile - {{ profile.mobile_no }}{% endblock %}
 
-{% block voiceRecognizer %}onload="check_incoming_call()"{% endblock %}
+{% block voiceRecognizer %}onload="check_incoming_call_sms()"{% endblock %}
 
 {% block crumbs %}
     &rsaquo; <a href="{% url 'mobile:index' %}">Mobile</a>

@@ -11,7 +11,7 @@ from django.db.models import Q
 from .models import Contact, Message
 from accounts.models import RPiUser
 from .forms import ContactForm, MessageForm
-from .scripts import call_functions
+from .scripts import call_sms_functions
 
 # Create your views here.
 
@@ -132,48 +132,68 @@ def message(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)
 
 @login_required
-def incoming_call_check(request):
-	call_coming = call_functions.incoming_call()
-	contact_in_phonebook = False
-	contact_name = ''
-	contact_number = call_coming
-	contact_photo = ''
-	if call_coming:
-		incoming_number = call_coming[3:]
-		try:
-			contact_details = Contact.objects.get(user=request.user, phone_number=incoming_number)
-			call_coming = True
-			contact_in_phonebook = True
-			contact_name = contact_details.name
-			contact_number = contact_details.phone_number
-			contact_photo = contact_details.avatar.url
-		except Contact.DoesNotExist:
-			call_coming = True
-	return JsonResponse({
-		'call_coming': call_coming,
-		'contact_in_phonebook': contact_in_phonebook,
-		'contact_name': contact_name,
-		'contact_number': contact_number,
-		'contact_photo': contact_photo
-	})
+def incoming_call_sms_check(request):
+	call_sms_coming = call_sms_functions.incoming_call_sms(request.user)
+	if call_sms_coming:
+		call_sms_coming = call_sms_coming.split(";")
+		message_coming = False
+		call_coming = False
+		contact_in_phonebook = False
+		contact_name = ''
+		contact_photo = ''
+		contact_number = ''
+		if call_sms_coming[0]=="CALL":
+			contact_number = call_sms_coming[1]
+			incoming_number = contact_number[3:]
+			try:
+				contact_details = Contact.objects.get(user=request.user, phone_number=incoming_number)
+				call_coming = True
+				message_coming = False
+				contact_in_phonebook = True
+				contact_name = contact_details.name
+				contact_number = contact_details.phone_number
+				contact_photo = contact_details.avatar.url
+			except Contact.DoesNotExist:
+				call_coming = True
+				message_coming = False
+		elif call_sms_coming[0]=="MESSAGE":
+			message_coming = True
+			call_coming = False
+			new_message_id = call_sms_coming[1]
+			new_message = get_object_or_404(Message,id=new_message_id)
+			contact_in_phonebook = not new_message.unknown_contact
+			if contact_in_phonebook:
+				contact_number = new_message.from_contact.phone_number
+				contact_name = new_message.from_contact.name
+				contact_photo = new_message.from_contact.avatar.url
+				contact_details = Contact.objects.get(user=request.user, phone_number=contact_number)
+		return JsonResponse({
+			'call_coming': call_coming,
+			'message_coming':message_coming,
+			'contact_in_phonebook': contact_in_phonebook,
+			'contact_name': contact_name,
+			'contact_number': contact_number,
+			'contact_photo': contact_photo,
+			'smsSlug': contact_details.slug,
+		})
 
 @login_required
 def receive_call(request):
-	flag = call_functions.receive_call()
+	flag = call_sms_functions.receive_call()
 	return JsonResponse({
 		'success':flag
 	})
 
 @login_required
 def abort_call(request):
-	flag = call_functions.abort_call()
+	flag = call_sms_functions.abort_call()
 	return JsonResponse({
 		'success':flag
 	})
 
 @login_required
 def check_call_connection(request):
-	flag = call_functions.check_call_connection()
+	flag = call_sms_functions.check_call_connection()
 	connected = False
 	if flag:
 		connected = False
