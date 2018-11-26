@@ -156,7 +156,7 @@ function sendSMS() {
         window.location.reload()
       }   
       else {
-        window.location.reload()
+        
       }
   });
 }
