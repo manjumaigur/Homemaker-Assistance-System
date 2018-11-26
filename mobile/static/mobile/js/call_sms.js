@@ -37,6 +37,7 @@ var abortBtn = document.getElementById('abortBtn');
 var sms_from = document.getElementById('sms_from');
 var closeSMSbtn = document.getElementById('closeSMSbtn');
 var chatroom_url = document.getElementById('chatroom_url');
+var sendSMS = document.getElementById('sendSMS');
 
 function incoming_call(flag,number,name,photo) {
     callModal.style.display = "block";
@@ -133,3 +134,28 @@ closeSMSbtn.onclick = function() {
     smsModal.style.display = "none";
     check_incoming_call_sms();
 }
+
+sendSMS.onclick = function() {
+  var textData = document.getElementById("id_text");
+  var phone_number = document.getElementById("contact_number");
+  textData = textData.value;
+  phone_number = phone_number.value;
+  var jsondata = {
+    'text':textData,
+    'phone_number': phone_number
+  }
+  $.ajax({
+    type: 'POST',
+    url: "http://localhost:8000/mobile/message/send/",
+    data: jsondata,
+    dataType: "json",
+    }).done(function (data) {
+      if (data.success) {
+        window.location.reload()
+      }   
+      else {
+        window.location.reload()
+      }
+  });
+}
+

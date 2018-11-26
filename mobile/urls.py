@@ -19,4 +19,5 @@ urlpatterns = [
 	url(r'^check_call_connection/$', views.check_call_connection, name='check-call-connection'),
 	url(r'^message/select-contact/$', views.message_select_contact, name="message-select-contact"),
 	url(r'^message/(?P<slug>[\w-]+)/$', views.chatroom, name="message"),
+	url(r'^message/send/$', views.send_sms_ajax, name="send-sms"),
 ]

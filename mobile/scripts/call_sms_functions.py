@@ -72,7 +72,7 @@ def check_call_connection():
 		port.close()
 		return False
 
-def send_sms(mobile_number,text):
+def send_sms(module_user,mobile_number,text):
 	GPIO.setmode(GPIO.BOARD)
 	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
 	port.write("AT+CMGF=1".encode())
@@ -86,6 +86,14 @@ def send_sms(mobile_number,text):
 		data = port.read(40)
 		flag = str(data).find("+CMGS:")
 		if flag>=0:
+			module_user = User.objects.get(username=module_user)
+			local_user = RPiUser.objects.get(user=module_user)
+			from_contact = Contact.objects.get(user=module_user, phone_number=local_user.mobile_no)
+			to_contact = Contact.objects.get(user=module_user,phone_number=mobile_number)
+			new_message = Message.objects.create(user=module_user,from_contact=from_contact,to_contact=to_contact)
+			new_message.text = text
+			new_message.unknown_contact = False
+			new_message.save()
 			time.sleep(1)
 			port.close()
 			return True
