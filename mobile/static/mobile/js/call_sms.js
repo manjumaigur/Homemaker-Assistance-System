@@ -154,7 +154,7 @@ function sendSMS(){
   console.log(jsondata)
   $.ajax({
     type: 'POST',
-    url: "http://localhost:8000/mobile/message/send/",
+    url: "http://localhost:8000/mobile/send_sms/",
     data: jsondata,
     dataType: "json",
     }).done(function (data) {
