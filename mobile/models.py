@@ -44,7 +44,7 @@ class Message(models.Model):
 	)
 	status = models.CharField(max_length=1, default='s', choices=STATUS_CHOICES, blank=False, null=True)
 	def __str__(self):
-		return str(self.from_contact+self.to_contact)
+		return str(self.to_contact)
 
 class Call(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

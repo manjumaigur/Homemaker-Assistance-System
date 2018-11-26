@@ -87,7 +87,9 @@ def send_sms(mobile_number,text):
 		flag = str(data).find("+CMGS:")
 		if flag>=0:
 			time.sleep(1)
+			port.close()
 			return True
+	port.close()
 	return False
 
 def save_message(module_user):
