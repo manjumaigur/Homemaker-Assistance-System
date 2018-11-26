@@ -39,6 +39,8 @@ var closeSMSbtn = document.getElementById('closeSMSbtn');
 var chatroom_url = document.getElementById('chatroom_url');
 var sendSMS = document.getElementById('sendSMS');
 
+smsModal.style.display="none";
+
 function incoming_call(flag,number,name,photo) {
     callModal.style.display = "block";
     declineBtn.style.display = "block";
