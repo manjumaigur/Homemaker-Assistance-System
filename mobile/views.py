@@ -124,7 +124,7 @@ def chatroom(request,slug):
 			new_form = form.save(commit=False)
 			local_user = RPiUser.objects.get(user=request.user)
 			from_contact = Contact.objects.get(user=request.user, phone_number=local_user.mobile_no)
-			to_contact = get_object_or_404(Contact, slug=slug)
+			to_contact = Contact.objects.get(user=request.user,slug=slug)
 			new_message = Message.objects.create(user=request.user,from_contact=from_contact)
 			new_message.text = form.cleaned_data['text']
 			new_message.to_contact = to_contact
