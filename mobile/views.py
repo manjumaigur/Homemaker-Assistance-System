@@ -153,7 +153,7 @@ def incoming_call_sms_check(request):
 		contact_name = ''
 		contact_photo = ''
 		contact_number = ''
-		contact_details=''
+		smsSlug=''
 		if call_sms_coming[0]=="CALL":
 			contact_number = call_sms_coming[1]
 			incoming_number = contact_number[3:]
@@ -179,6 +179,7 @@ def incoming_call_sms_check(request):
 				contact_name = new_message.from_contact.name
 				contact_photo = new_message.from_contact.avatar.url
 				contact_details = Contact.objects.get(user=request.user, phone_number=contact_number)
+				smsSlug = contact_details.slug
 		return JsonResponse({
 			'call_coming': call_coming,
 			'message_coming':message_coming,
@@ -186,7 +187,7 @@ def incoming_call_sms_check(request):
 			'contact_name': contact_name,
 			'contact_number': contact_number,
 			'contact_photo': contact_photo,
-			'smsSlug': contact_details.slug,
+			'smsSlug': smsSlug,
 		})
 	else:
 		return JsonResponse({
