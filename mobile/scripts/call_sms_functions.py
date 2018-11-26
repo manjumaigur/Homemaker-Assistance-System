@@ -117,9 +117,9 @@ def save_message(module_user):
 		msg_content=msg[2]
 		msg_details=(msg[1].split(","))[1]
 		module_user = User.objects.get(username=module_user)
-		store_msg = Message.objects.create(user=module_user)
 		local_user = RPiUser.objects.get(user=module_user)
-		store_msg.to_contact = Contact.objects.get(user=module_user, phone_number=local_user.mobile_no)
+		to_contact = Contact.objects.get(user=module_user, phone_number=local_user.mobile_no)
+		store_msg = Message.objects.create(user=module_user,to_contact=to_contact)
 		store_msg.text = msg_content
 		store_msg.is_incoming = True
 		store_msg.is_outgoing = False
