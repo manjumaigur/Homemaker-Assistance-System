@@ -109,7 +109,7 @@ def save_message(module_user):
 	data=port.read(1000)
 	time.sleep(1)
 	sms_no=str(data).split("CMGL")
-	port.write(('AT+CMGR='+(len(sms_no)-1)+"\r").encode())
+	port.write(('AT+CMGR='+str(len(sms_no)-1)+"\r").encode())
 	data=port.read(1000)
 	flag=str(data).find("OK")
 	if flag>=0:
