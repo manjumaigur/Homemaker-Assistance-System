@@ -37,7 +37,7 @@ var abortBtn = document.getElementById('abortBtn');
 var sms_from = document.getElementById('sms_from');
 var closeSMSbtn = document.getElementById('closeSMSbtn');
 var chatroom_url = document.getElementById('chatroom_url');
-var sendSMS = document.getElementById('sendSMS');
+
 
 smsModal.style.display="none";
 
@@ -124,7 +124,7 @@ function incoming_call(flag,number,name,photo) {
 function incoming_sms(flag,number,name,slug) {
   smsModal.style.display = "block";
   if (flag) {
-    sms_from.innerHTML = name + "::" number
+    sms_from.innerHTML = name + "::" +numberl;
     chatroom_url.href="http://localhost:8000/mobile/message/"+slug+"/"
   }
   else {
@@ -137,7 +137,12 @@ closeSMSbtn.onclick = function() {
     check_incoming_call_sms();
 }
 
-function sendSMS() {
+$('#sendSMS').on('submit', function(event){
+    event.preventDefault();
+    sendSMS();
+});
+
+function sendSMS(){
   var textData = document.getElementById("id_text");
   var phone_number = document.getElementById("contact_number");
   textData = textData.value;
@@ -146,6 +151,7 @@ function sendSMS() {
     'text':textData,
     'phone_number': phone_number
   }
+  console.log(jsondata)
   $.ajax({
     type: 'POST',
     url: "http://localhost:8000/mobile/message/send/",
@@ -156,7 +162,7 @@ function sendSMS() {
         window.location.reload()
       }   
       else {
-        
+        window.location.reload()
       }
   });
 }

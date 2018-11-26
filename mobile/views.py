@@ -127,15 +127,16 @@ def send_sms_ajax(request):
 		if request.is_ajax():
 			phone_number = request.POST.get('phone_number')
 			text = request.POST.get('text')
+			print(phone_number,text)
 			flag = call_sms_functions.send_sms(request.user,phone_number,text)
 			if flag:
-				return JsonResponse({
-	    			'success': True,
-				})
+				success=True
 			else:
-				return JsonResponse({
-	    			'success': False,
-				})		
+				success = False
+	return JsonResponse({
+	    'success': success,
+	})
+	
 @login_required
 def message(request,slug):
 	contact = get_object_or_404(Contact, slug=slug)

@@ -37,13 +37,13 @@
 		{% endif %}
 	{% endfor %}
 
-	<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+	<form id="sendSMS" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		<div>
 			{% include 'mobile/form_template.html' %}
 			<div class="submit-row" style="text-align: right;">
 				<button type="reset" class="btn btn-danger quarterWidth">Reset</button>
-				<button id="sendSMS" onclick="sendSMS()" class="btn btn-success quarterWidth">Send Message</button>
+				<button type="submit" class="btn btn-success quarterWidth">Send Message</button>
 			</div>
 		</div>	
 	</form>
