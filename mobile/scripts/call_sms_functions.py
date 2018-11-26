@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import os,time
 from django.contrib.auth.models import User
 from accounts.models import RPiUser
-from mobile.models import Message
+from mobile.models import Message,Contact
 
 def incoming_call_sms(module_user):
 	GPIO.setmode(GPIO.BOARD)
