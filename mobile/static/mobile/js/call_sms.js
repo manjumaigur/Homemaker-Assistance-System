@@ -141,7 +141,7 @@ sendSMS.onclick = function() {
   var textData = document.getElementById("id_text");
   var phone_number = document.getElementById("contact_number");
   textData = textData.value;
-  phone_number = phone_number.value;
+  phone_number = phone_number.innerHTML;
   var jsondata = {
     'text':textData,
     'phone_number': phone_number
