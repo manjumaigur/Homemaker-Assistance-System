@@ -137,7 +137,7 @@ closeSMSbtn.onclick = function() {
     check_incoming_call_sms();
 }
 
-sendSMS.onclick = function() {
+function sendSMS() {
   var textData = document.getElementById("id_text");
   var phone_number = document.getElementById("contact_number");
   textData = textData.value;
