@@ -129,6 +129,7 @@ def send_sms_ajax(request):
 			text = request.POST.get('text')
 			print(phone_number,text)
 			flag = call_sms_functions.send_sms(request.user,phone_number,text)
+			print(flag)
 			if flag:
 				success=True
 			else:
