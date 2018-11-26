@@ -78,7 +78,7 @@ def send_sms(module_user,mobile_number,text):
 	port.write("AT+CMGF=1".encode())
 	print("1")
 	time.sleep(1)
-	port.write(('AT+CMGS='+mobile_number+'r').encode())
+	port.write(('AT+CMGS='+mobile_number+'\r').encode())
 	print("2")
 	time.sleep(2)
 	port.write(text.encode())
@@ -90,6 +90,7 @@ def send_sms(module_user,mobile_number,text):
 	while True:
 		data = port.read(40)
 		flag = str(data).find("+CMGS:")
+		print(data)
 		if flag>=0:
 			module_user = User.objects.get(username=module_user)
 			local_user = RPiUser.objects.get(user=module_user)
