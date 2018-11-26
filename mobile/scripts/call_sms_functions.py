@@ -78,7 +78,7 @@ def send_sms(module_user,mobile_number,text):
 	port.write("AT+CMGF=1".encode())
 	print("1")
 	time.sleep(1)
-	port.write(('AT+CMGS='+mobile_number+'\r').encode())
+	port.write(('AT+CMGS="'+mobile_number+'"\r').encode())
 	print("2")
 	time.sleep(2)
 	port.write(text.encode())
