@@ -102,6 +102,7 @@ def send_sms(module_user,mobile_number,text):
 			time.sleep(1)
 			port.close()
 			return True
+	print("closed")
 	port.close()
 	return False
 
