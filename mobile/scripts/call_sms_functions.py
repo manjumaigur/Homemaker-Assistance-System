@@ -143,11 +143,11 @@ def save_message(module_user):
 			store_msg.unknown_contact = False
 			store_msg.from_contact = contact_details
 			store_msg.save()
-			return store_msg.id+";"+"1"		#id;saved
+			return str(store_msg.id)+";"+"1"		#id;saved
 		else:
 			store_msg.unknown_contact = True
 			store_msg.unknown_mobile = from_contact
 			store_msg.save()
-			return store_msg.id+";"+"1"		#id;saved
+			return str(store_msg.id)+";"+"1"		#id;saved
 	else:
 		return "0"+";"+"0"
