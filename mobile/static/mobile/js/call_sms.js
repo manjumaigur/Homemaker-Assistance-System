@@ -37,9 +37,22 @@ var abortBtn = document.getElementById('abortBtn');
 var sms_from = document.getElementById('sms_from');
 var closeSMSbtn = document.getElementById('closeSMSbtn');
 var chatroom_url = document.getElementById('chatroom_url');
-
-
+var phoneNumber='';
 smsModal.style.display="none";
+
+
+function buttonClicked(btn) {
+  var screenClass = document.getElementById("keyboard-typed");
+  if(btn=="clear") {
+    phoneNumber=phoneNumber.slice(0, phoneNumber.length-1);
+  }
+  else{
+    phoneNumber+=btn;
+  }
+  if (phoneNumber.length<=10) {
+    screenClass.innerHTML = phoneNumber;
+  }
+}
 
 function make_call() {
   make_call(phoneNumber) 

@@ -22,18 +22,3 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-var phoneNumber='';
-
-function buttonClicked(btn) {
-	var screenClass = document.getElementById("keyboard-typed");
-	if(btn=="clear") {
-		phoneNumber=phoneNumber.slice(0, phoneNumber.length-1);
-	}
-	else{
-		phoneNumber+=btn;
-	}
-	if (phoneNumber.length<=10) {
-		screenClass.innerHTML = phoneNumber;
-	}
-}
