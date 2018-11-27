@@ -10,7 +10,7 @@ from django.utils.text import slugify
 from django.db.models import Q
 import json
 from .models import Brand, Remote
-import send_data
+from .scripts import send_data
 
 # Create your views here.
 @login_required
