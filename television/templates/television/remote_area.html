@@ -4,7 +4,7 @@
 
 {% block content_title %}{{ remote }}{% endblock %}
 
-{% block voiceRecognizer %}onload="remoteOperations({{remote.slug}})"{% endblock %}
+{% block voiceRecognizer %}onload="startConverting()"{% endblock %}
 
 {% block crumbs %}
     &rsaquo; <a href="{% url 'television:index' %}">Television</a>
@@ -22,28 +22,28 @@
 	      <div id="remote-typed"></div>
 	    </div>
 	    <div class="remote-button-row">
-	      <div class="button c" onclick="buttonClicked('POWER')">ON</div>
-	      <div class="button" onclick="buttonClicked('0')">0</div>
-	      <div class="button l" onclick="buttonClicked('MUTE')"><span class="glyphicon glyphicon-volume-off"></span></div>
-	      <div class="button l" onclick="buttonClicked('CH+')">Ch+</div>
+	      <div class="button c" onclick="buttonClicked('POWER','{{remote.slug}}')">ON</div>
+	      <div class="button" onclick="buttonClicked('0','{{remote.slug}}')">0</div>
+	      <div class="button l" onclick="buttonClicked('MUTE','{{remote.slug}}')"><span class="glyphicon glyphicon-volume-off"></span></div>
+	      <div class="button l" onclick="buttonClicked('CH+','{{remote.slug}}')">Ch+</div>
 	    </div>
 	    <div class="remote-button-row">
-	      <div class="button" onclick="buttonClicked('1')">1</div>
-	      <div class="button" onclick="buttonClicked('2')">2</div>
-	      <div class="button" onclick="buttonClicked('3')">3</div>
-	      <div class="button l" onclick="buttonClicked('CH-')">Ch-</div>
+	      <div class="button" onclick="buttonClicked('1','{{remote.slug}}')">1</div>
+	      <div class="button" onclick="buttonClicked('2','{{remote.slug}}')">2</div>
+	      <div class="button" onclick="buttonClicked('3','{{remote.slug}}')">3</div>
+	      <div class="button l" onclick="buttonClicked('CH-','{{remote.slug}}')">Ch-</div>
 	    </div>
 	    <div class="remote-button-row">
-	      <div class="button" onclick="buttonClicked('4')">4</div>
-	      <div class="button" onclick="buttonClicked('5')">5</div>
-	      <div class="button" onclick="buttonClicked('6')">6</div>
-	      <div class="button l" onclick="buttonClicked('VOL+')">Vol+</div>
+	      <div class="button" onclick="buttonClicked('4','{{remote.slug}}')">4</div>
+	      <div class="button" onclick="buttonClicked('5','{{remote.slug}}')">5</div>
+	      <div class="button" onclick="buttonClicked('6','{{remote.slug}}')">6</div>
+	      <div class="button l" onclick="buttonClicked('VOL+','{{remote.slug}}')">Vol+</div>
 	    </div>
 	    <div class="remote-button-row">
-	      <div class="button" onclick="buttonClicked('7')">7</div>
-	      <div class="button" onclick="buttonClicked('8')">8</div>
-	      <div class="button" onclick="buttonClicked('9')">9</div>
-	      <div class="button l" onclick="buttonClicked('VOL-')">Vol-</div>
+	      <div class="button" onclick="buttonClicked('7','{{remote.slug}}')">7</div>
+	      <div class="button" onclick="buttonClicked('8','{{remote.slug}}')">8</div>
+	      <div class="button" onclick="buttonClicked('9','{{remote.slug}}')">9</div>
+	      <div class="button l" onclick="buttonClicked('VOL-','{{remote.slug}}')">Vol-</div>
 	    </div>
 	  </div>
 	</div>

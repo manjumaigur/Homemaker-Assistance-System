@@ -76,6 +76,7 @@ def sendIRdata(request):
 				jsonData = json.load(jsonfile)
 			hexCode = jsonData[button]
 			decimalCode = int(hexCode,16)
+			print(decimalCode)
 			send_data.irSend(str(decimalCode))
 	return JsonResponse({
 	    'success': True,

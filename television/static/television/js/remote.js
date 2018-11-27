@@ -11,15 +11,13 @@ $.ajaxSetup({
   }
 });
 
-function remoteOperations(remoteSlug) {
-
-	function buttonClicked(btn) {
+function buttonClicked(btn,remoteSlug) {
 		var screenClass = document.getElementById("remote-typed");
 		screenClass.innerHTML = btn;
-		sendBtn(btn)
-	}
+		sendBtn(btn,remoteSlug)
+}
 
-	function sendBtn(button){
+function sendBtn(button,remoteSlug){
 	  var jsondata = {
 	    'button':button,
 	    'remoteSlug':remoteSlug
@@ -30,5 +28,4 @@ function remoteOperations(remoteSlug) {
 	    data: jsondata,
 	    dataType: "json",
 	    });
-	}
 }
