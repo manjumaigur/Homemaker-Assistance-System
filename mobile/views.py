@@ -22,12 +22,12 @@ def index(request):
 
 @login_required
 def contact_list(request):
-	contacts = Contact.objects.filter(user=request.user,~Q(slug=str(request.user)+'RPiDefaultUser'))
+	contacts = Contact.objects.filter(Q(user=request.user) & (~Q(slug=str(request.user)+'RPiDefaultUser')))
 	return render(request, 'mobile/contacts.html', {'contacts':contacts})
 
 @login_required
 def custom_contact_list(request,slug):
-	contacts = Contact.objects.filter(user=request.user,original_name=slug,~Q(slug=str(request.user)+'RPiDefaultUser'))
+	contacts = Contact.objects.filter(Q(user=request.user)&Q(original_name=slug)&(~Q(slug=str(request.user)+'RPiDefaultUser')))
 	return render(request, 'mobile/contacts.html', {'contacts':contacts})
 
 @login_required
@@ -101,7 +101,7 @@ class DeleteContact(DeleteView):
 
 @login_required
 def call_select_contact(request):
-	contacts = Contact.objects.filter(user=request.user,~Q(slug=str(request.user)+'RPiDefaultUser'))
+	contacts = Contact.objects.filter(Q(user=request.user) & (~Q(slug=str(request.user)+'RPiDefaultUser')))
 	return render(request, 'mobile/call_select_contact.html', {'contacts':contacts})
 
 @login_required
@@ -111,7 +111,7 @@ def call(request, slug):
 
 @login_required
 def message_select_contact(request):
-	contacts = Contact.objects.filter(user=request.user,~Q(slug=str(request.user)+'RPiDefaultUser'))
+	contacts = Contact.objects.filter(Q(user=request.user) & (~Q(slug=str(request.user)+'RPiDefaultUser')))
 	return render(request, 'mobile/message_select_contact.html', {'contacts':contacts})
 
 @login_required
