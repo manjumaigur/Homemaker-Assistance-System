@@ -37,7 +37,7 @@
 				<tr>
 					<td>
 						<img src="{{ contact.avatar.url }}" alt="{{ contact.name }}" title="{{ contact.name }}" height="20px" />
-						<a href="{% url 'mobile:call' slug=contact.slug %}">{{ contact.name }} - {{ contact.phone_number }}</a>
+						<a href="#" onclick="make_call('{{ contact.phone_number }}')">{{ contact.name }} - {{ contact.phone_number }}</a>
 					</td>
 				</tr>
 				{% endfor %}

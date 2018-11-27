@@ -27,6 +27,7 @@ class Remote(models.Model):
 	)
 	remote_type = models.CharField(max_length=1, default='s', choices=REMOTE_TYPES, blank=False, null=True)
 	remotes_in_use = models.IntegerField(default=0)
+	ir_code_file = models.FileField(null=True, help_text="upload .json files only", validators=[FileExtensionValidator(['json'])])
 	slug = models.SlugField(unique=True, max_length=500)  #slug=brand-model
 
 	def __str__(self):

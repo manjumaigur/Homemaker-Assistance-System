@@ -10,4 +10,5 @@ urlpatterns = [
 	url(r'^remote/(?P<slug>[\w-]+)/$',views.remote_detail, name='remote-detail'),
 	url(r'^remote/(?P<slug>[\w-]+)/add/$', views.add_remote, name='remote-add'),
 	url(r'^remote/(?P<slug>[\w-]+)/operate/$', views.remote_area, name='remote-area'),
+	url(r'^send-ir-code/$', views.sendIRdata, name='send-ir-code'),
 ]

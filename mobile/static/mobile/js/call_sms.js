@@ -13,7 +13,7 @@ $.ajaxSetup({
 function check_incoming_call_sms(){
   $.ajax({
     type: 'GET',
-    url: "http://localhost:8000/mobile/check_incoming_call_sms/",
+    url: "http://localhost:8000/mobile/check-incoming-call-sms/",
     }).done(function (data) {
       if (data.call_coming) {
         incoming_call(data.contact_in_phonebook,data.contact_number,data.contact_name,data.contact_photo);
@@ -40,6 +40,29 @@ var chatroom_url = document.getElementById('chatroom_url');
 
 
 smsModal.style.display="none";
+
+function make_call() {
+  make_call(phoneNumber) 
+}
+
+function make_call(phone_number) {
+  var jsondata = {
+    'phone_number': phone_number
+  }
+   $.ajax({
+    type: 'POST',
+    url: "http://localhost:8000/mobile/make-call",
+    data: jsondata,
+    dataType: "json",
+    }).done(function (data) {
+      if (data.call_going) {
+        outgoing_call(data.contact_in_phonebook,data.contact_number,data.contact_name,data.contact_photo)
+      }   
+      else {
+        window.location.reload()
+      }
+  });   
+}
 
 function incoming_call(flag,number,name,photo) {
     callModal.style.display = "block";
@@ -71,7 +94,28 @@ function incoming_call(flag,number,name,photo) {
       receive_call();
       return e.preventDefault();
     });
-    function receive_call(){
+}
+
+function outgoing_call(flag,number,name,photo) {
+    callModal.style.display = "block";
+    abortBtn.style.display = "block";
+    if (flag) {
+      userPic.src = "http://localhost:8000"+photo;
+      username.innerHTML= name+": "+number;
+    }
+    else {
+      userPic.src = "media/default_avatar.png";
+      username.innerHTML = number;
+    }
+    check_call_connection();
+
+    $('#abortBtn').on('click', function(e) {
+      abort_call();
+      return e.preventDefault();
+    });
+}
+
+function receive_call(){
       $.ajax({
         type: 'GET',
         url: "http://localhost:8000/mobile/receive_call/",
@@ -89,7 +133,7 @@ function incoming_call(flag,number,name,photo) {
       });
     }
 
-    function abort_call(){
+  function abort_call(){
       $.ajax({
         type: 'GET',
         url: "http://localhost:8000/mobile/abort_call/",
@@ -119,7 +163,6 @@ function incoming_call(flag,number,name,photo) {
           }
       });
     }
-}
 
 function incoming_sms(flag,number,name,slug) {
   smsModal.style.display = "block";

@@ -202,6 +202,37 @@ def receive_call(request):
 	})
 
 @login_required
+def make_call(request):
+	if request.method == 'POST':
+		if request.is_ajax():
+			phone_number = request.POST.get('phone_number')
+			call_going = call_sms_functions.make_call(phone_number)
+			if call_going:
+				contact_in_phonebook = False
+				contact_name = ''
+				contact_photo = ''
+				contact_number = ''
+				try:
+					contact_details = Contact.objects.get(user=request.user, phone_number=phone_number)
+					contact_in_phonebook = True
+					contact_name = contact_details.name
+					contact_number = contact_details.phone_number
+					contact_photo = contact_details.avatar.url
+				except Contact.DoesNotExist:
+					pass
+				return JsonResponse({
+					'call_going':call_going,
+					'contact_in_phonebook': contact_in_phonebook,
+					'contact_name': contact_name,
+					'contact_number': contact_number,
+					'contact_photo': contact_photo,
+				})
+			else:
+				return JsonResponse({
+					'call_going':call_going
+					})
+
+@login_required
 def abort_call(request):
 	flag = call_sms_functions.abort_call()
 	return JsonResponse({

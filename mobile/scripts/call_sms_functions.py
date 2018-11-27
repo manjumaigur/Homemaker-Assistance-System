@@ -5,9 +5,14 @@ from django.contrib.auth.models import User
 from accounts.models import RPiUser
 from mobile.models import Message,Contact
 
-def incoming_call_sms(module_user):
-	GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD)
+port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+
+def connect_to_port():
 	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+
+def incoming_call_sms(module_user):
+	connect_to_port()
 	data = port.read(10)
 	ring=str(data).find("RING")
 	new_message = str(data).find("+CMTI")
@@ -16,7 +21,6 @@ def incoming_call_sms(module_user):
 		call_details = port.read(30)
 		phone_number = str(call_details).split('"')
 		phone_number = phone_number[1]
-		port.close()
 		return "CALL"+";"+phone_number
 	elif new_message>=0:
 		flag=save_message(module_user)
@@ -27,54 +31,54 @@ def incoming_call_sms(module_user):
 			pass
 		return "MESSAGE"+";"+msg_id
 	else:
-		port.close()
 		return False
 
 def receive_call():
-	GPIO.setmode(GPIO.BOARD)
-	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	connect_to_port()
 	port.write("ATA\r".encode())
 	data = port.read(12)
 	received=str(data).find("OK")
 	aborted=str(data).find("NO CARRIER")
 	if received>=0:
-		port.close()
 		return True
 	if aborted>=0:
-		port.close()
 		return False
-	port.close()
 	return False
 
+def make_call(phone_number):
+	connect_to_port()
+	port.write("ATD"+phone_number+";\r".encode())
+	time.sleep(2)
+	data = port.read(10)
+	connected = str(data).find("OK")
+	disconnected = str(data).find("NO CARRIER")
+	if connected>=0:
+		return True
+	else:
+		return False
+
 def abort_call():
-	GPIO.setmode(GPIO.BOARD)
-	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	connect_to_port()
 	port.write("ATH0\r".encode())
 	data = port.read(12)
 	print(data)
 	aborted=str(data).find("OK")
 	if aborted>=0:
-		port.close()
 		return True
 	else:
-		port.close()
 		return False
 
 def check_call_connection():
-	GPIO.setmode(GPIO.BOARD)
-	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	connect_to_port()
 	data = port.read(12)
 	disconnected=str(data).find("NO CARRIER")
 	if disconnected>=0:
-		port.close()
 		return True
 	else:
-		port.close()
 		return False
 
 def send_sms(module_user,mobile_number,text):
-	GPIO.setmode(GPIO.BOARD)
-	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	connect_to_port()
 	sms='AT+CMGS="'+mobile_number+'"\r'
 	port.write(sms.encode())
 	time.sleep(2)
@@ -96,15 +100,12 @@ def send_sms(module_user,mobile_number,text):
 			new_message.unknown_contact = False
 			new_message.save()
 			time.sleep(1)
-			port.close()
 			return True
 	print("closed")
-	port.close()
 	return False
 
 def save_message(module_user):
-	GPIO.setmode(GPIO.BOARD)
-	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	connect_to_port()
 	port.write('AT+CMGL="REC UNREAD"\r'.encode())
 	data=port.read(1000)
 	time.sleep(1)
@@ -137,14 +138,11 @@ def save_message(module_user):
 			store_msg.unknown_contact = False
 			store_msg.from_contact = contact_details
 			store_msg.save()
-			port.close()
 			return store_msg.id+";"+"1"		#id;saved
 		else:
 			store_msg.unknown_contact = True
 			store_msg.unknown_mobile = from_contact
 			store_msg.save()
-			port.close()
 			return store_msg.id+";"+"1"		#id;saved
 	else:
-		port.close()
 		return "0"+";"+"0"
