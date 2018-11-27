@@ -9,7 +9,12 @@ GPIO.setmode(GPIO.BOARD)
 port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
 
 def connect_to_port():
-	port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	try:
+		port=serial.Serial("/dev/ttyS0",baudrate=9600,timeout=1)
+	except serial.serialutil.SerialException:
+		port.close()
+		time.sleep(1)
+		port.open()
 
 def incoming_call_sms(module_user):
 	connect_to_port()
