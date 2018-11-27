@@ -9,8 +9,11 @@ from django.contrib import messages
 from django.utils.text import slugify
 from django.db.models import Q
 import json
+import os
 from .models import Brand, Remote
 from .scripts import send_data
+
+basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Create your views here.
 @login_required
@@ -72,7 +75,7 @@ def sendIRdata(request):
 			button = request.POST.get('button')
 			remoteSlug = request.POST.get('remoteSlug')
 			remote = Remote.objects.get(user=request.user,slug=remoteSlug)
-			with open(remote.ir_code_file.url) as jsonfile:
+			with open(basedir+remote.ir_code_file.url) as jsonfile:
 				jsonData = json.load(jsonfile)
 			hexCode = jsonData[button]
 			decimalCode = int(hexCode,16)
