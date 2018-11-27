@@ -72,7 +72,7 @@ def sendIRdata(request):
 			button = request.POST.get('button')
 			remoteSlug = request.POST.get('remoteSlug')
 			remote = Remote.objects.get(user=request.user,slug=remoteSlug)
-			with open("http://localhost:8000"+remote.ir_code_file.url) as jsonfile:
+			with open(remote.ir_code_file.url) as jsonfile:
 				jsonData = json.load(jsonfile)
 			hexCode = jsonData[button]
 			decimalCode = int(hexCode,16)
