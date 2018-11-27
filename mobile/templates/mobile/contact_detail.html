@@ -31,7 +31,7 @@
 	</div>
 	<div class="text-center">
 		<a href="{% url 'mobile:message' slug=contact.slug %}"><button class="btn btn-primary quarterWidth"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp; Message</button></a>
-		<a href="#" onclick="make_call('{{ contact.phone_number }}')"><button class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-earphone"></span>&nbsp; Call</button></a>
+		<a href="#" onclick="make_call_number('{{ contact.phone_number }}')"><button class="btn btn-success quarterWidth"><span class="glyphicon glyphicon-earphone"></span>&nbsp; Call</button></a>
 		<a href="{% url 'mobile:edit-contact' contact.slug %}"><button class="btn btn-info quarterWidth"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit Contact</button></a>	
 		<form action="{% url 'mobile:delete-contact' contact.slug %}" method="get">
 			{% csrf_token %}
