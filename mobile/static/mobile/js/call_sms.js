@@ -48,6 +48,7 @@ function buttonClicked(btn) {
   }
   else{
     phoneNumber+=btn;
+    console.log(phoneNumber);
   }
   if (phoneNumber.length<=10) {
     screenClass.innerHTML = phoneNumber;
@@ -55,12 +56,12 @@ function buttonClicked(btn) {
 }
 
 function make_call() {
-  console.log(phone_number)
-  make_call(phoneNumber) 
+  console.log(phone_number);
+  make_call(phoneNumber);
 }
 
 function make_call(phone_number) {
-  console.log(phone_number)
+  console.log(phone_number);
   var jsondata = {
     'phone_number': phone_number
   }
