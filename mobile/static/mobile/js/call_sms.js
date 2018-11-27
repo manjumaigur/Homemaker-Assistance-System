@@ -56,7 +56,7 @@ function buttonClicked(btn) {
 }
 
 function make_call() {
-  console.log(phone_number);
+  console.log(phoneNumber);
   make_call_number(phoneNumber);
 }
 
