@@ -89,7 +89,7 @@ def send_sms(module_user,mobile_number,text):
 		if flag>=0:
 			module_user = User.objects.get(username=module_user)
 			local_user = RPiUser.objects.get(user=module_user)
-			from_contact = Contact.objects.get(user=module_user, phone_number=local_user.mobile_no)
+			from_contact = Contact.objects.get(user=module_user, slug=str(module_user)+'RPiDefaultUser')
 			to_contact = Contact.objects.get(user=module_user,phone_number=mobile_number)
 			new_message = Message.objects.create(user=module_user,from_contact=from_contact,to_contact=to_contact)
 			new_message.text = text
@@ -118,7 +118,7 @@ def save_message(module_user):
 		msg_details=(msg[1].split(","))[1]
 		module_user = User.objects.get(username=module_user)
 		local_user = RPiUser.objects.get(user=module_user)
-		to_contact = Contact.objects.get(user=module_user, phone_number=local_user.mobile_no)
+		to_contact = Contact.objects.get(user=module_user,slug=str(module_user)+'RPiDefaultUser')
 		store_msg = Message.objects.create(user=module_user,to_contact=to_contact)
 		store_msg.text = msg_content
 		store_msg.is_incoming = True
