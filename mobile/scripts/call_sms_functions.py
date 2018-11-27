@@ -52,7 +52,7 @@ def receive_call():
 
 def make_call(phone_number):
 	connect_to_port()
-	port.write("ATD"+phone_number+";\r".encode())
+	port.write(("ATD"+phone_number+";\r").encode())
 	time.sleep(2)
 	data = port.read(10)
 	connected = str(data).find("OK")

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse 
+from django.http import HttpResponse,JsonResponse
 from django.template import Template, Context, loader
 from django.views import generic
 from django.urls import reverse_lazy
