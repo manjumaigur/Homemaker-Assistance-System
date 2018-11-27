@@ -24,7 +24,7 @@ function sendBtn(button,remoteSlug){
 	  }
 	  $.ajax({
 	    type: 'POST',
-	    url: "http://localhost:8000/television/send-ir-code",
+	    url: "http://localhost:8000/television/send-ir-code/",
 	    data: jsondata,
 	    dataType: "json",
 	    });

@@ -51,7 +51,7 @@ function make_call(phone_number) {
   }
    $.ajax({
     type: 'POST',
-    url: "http://localhost:8000/mobile/make-call",
+    url: "http://localhost:8000/mobile/make-call/",
     data: jsondata,
     dataType: "json",
     }).done(function (data) {
