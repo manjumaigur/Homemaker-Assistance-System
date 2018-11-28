@@ -79,7 +79,19 @@
                 </div>  
             </div>
         </footer>
-        <script type="text/javascript" src="{% static 'audiosystem/js/tts.js' %}"></script>
         <script type="text/javascript" src="{% static 'television/js/remote.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/tts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/ttsForm.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/select_contacts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'audiosystem/js/confirmations.js' %}"></script>
+        <script type="text/javascript" src="{% static 'mobile/js/keyboard.js' %}"></script>
+        <script type="text/javascript" src="{% static 'mobile/js/call_sms.js' %}"></script>
+        <script type="text/javascript">
+            function call_voice(){
+                check_incoming_call_sms();
+                startConverting();
+                console.log("functions loaded");
+            }
+        </script>
     </body>
 </html>
