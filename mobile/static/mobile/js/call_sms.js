@@ -117,6 +117,8 @@ function incoming_call(flag,number,name,photo) {
 function outgoing_call(flag,number,name,photo) {
     callModal.style.display = "block";
     abortBtn.style.display = "block";
+    declineBtn.style.display = "none";
+    acceptBtn.style.display = "none";
     if (flag) {
       userPic.src = "http://localhost:8000"+photo;
       username.innerHTML= name+": "+number;
