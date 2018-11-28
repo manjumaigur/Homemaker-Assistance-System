@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'audiosystem/css/audiobox.css' %}">
     </head>
 
-    <body onload="startConverting()">
+    <body onload="call_voice()">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -82,7 +82,7 @@
         <script type="text/javascript">
             function call_voice(){
                 check_incoming_call_sms();
-                startConverting();
+                selectContacts();
                 console.log("functions loaded");
             }
         </script>    </body>

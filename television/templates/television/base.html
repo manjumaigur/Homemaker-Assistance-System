@@ -19,7 +19,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'television/css/remote.css' %}">
     </head>
 
-    <body {% block voiceRecognizer %}{% endblock %}>
+    <body onload="call_voice()">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
