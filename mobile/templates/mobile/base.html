@@ -101,5 +101,11 @@
         <script type="text/javascript" src="{% static 'audiosystem/js/confirmations.js' %}"></script>
         <script type="text/javascript" src="{% static 'mobile/js/keyboard.js' %}"></script>
         <script type="text/javascript" src="{% static 'mobile/js/call_sms.js' %}"></script>
+        <script type="text/javascript">
+            function call_voice(){
+                check_incoming_call_sms();
+                selectContacts();
+            }
+        </script>
     </body>
 </html>

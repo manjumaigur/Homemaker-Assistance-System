@@ -111,7 +111,7 @@ def send_sms(module_user,mobile_number,text):
 
 def save_message(module_user):
 	connect_to_port()
-	port.write('AT+CMGL="REC UNREAD"\r'.encode())
+	port.write('AT+CMGL="ALL"\r'.encode())
 	data=port.read(1000)
 	time.sleep(1)
 	sms_no=str(data).split("CMGL")

@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'mobile/css/chatroom.css' %}" />
 {% endblock %}
 
-{% block voiceRecognizer %}onload="check_incoming_call_sms()"{% endblock %}
+{% block voiceRecognizer %}onload="call_voice()"{% endblock %}
 
 {% block content_title %}{{ contact.name }} - <span id="contact_number">{{ contact.phone_number }}</span>{% endblock %}
 
@@ -23,7 +23,7 @@
 
 	{% for message in messages %}
 		{% if message.is_incoming %}
-			<div class="chatContainer">
+			<div class="chatContainer white">
 			  <img src="{{ message.from_contact.avatar.url }}" alt="{{ message.from_contact.name }}">
 			  <p>{{ message.text }}</p>
 			  <span class="time-right">{{ message.received_datetime }}</span>

@@ -41,6 +41,11 @@ label {
     float: right;
 }
 
+.white{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 /* Clear floats */
 .chatContainer::after {
     content: "";

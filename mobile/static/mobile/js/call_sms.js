@@ -37,6 +37,7 @@ var abortBtn = document.getElementById('abortBtn');
 var sms_from = document.getElementById('sms_from');
 var closeSMSbtn = document.getElementById('closeSMSbtn');
 var chatroom_url = document.getElementById('chatroom_url');
+var modal = document.getElementById('myModal');
 var phoneNumber='';
 smsModal.style.display="none";
 
@@ -72,6 +73,7 @@ function make_call_number(phone_number) {
     dataType: "json",
     }).done(function (data) {
       if (data.call_going) {
+        modal.style.display = "none";
         outgoing_call(data.contact_in_phonebook,data.contact_number,data.contact_name,data.contact_photo)
       }   
       else {
