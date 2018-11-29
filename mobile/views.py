@@ -180,6 +180,10 @@ def incoming_call_sms_check(request):
 				contact_photo = new_message.from_contact.avatar.url
 				contact_details = Contact.objects.get(user=request.user, phone_number=contact_number)
 				smsSlug = contact_details.slug
+			else:
+				uk_contact_details = Contact.objects.get(user=request.user, phone_number=contact_number,unknown=True)
+				contact_name = new_message.from_contact.name
+				smsSlug = uk_contact_details.slug
 		return JsonResponse({
 			'call_coming': call_coming,
 			'message_coming':message_coming,

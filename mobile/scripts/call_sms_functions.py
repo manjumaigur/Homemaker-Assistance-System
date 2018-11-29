@@ -115,7 +115,7 @@ def save_message(module_user):
 	data=port.read(1000)
 	time.sleep(1)
 	sms_no=str(data).split("CMGL")
-	port.write(('AT+CMGR='+str(len(sms_no)-1)+"\r").encode())
+	port.write(('AT+CMGR=1\r').encode())
 	data=port.read(1000)
 	flag=str(data).find("OK")
 	if flag>=0:
@@ -143,11 +143,29 @@ def save_message(module_user):
 			store_msg.unknown_contact = False
 			store_msg.from_contact = contact_details
 			store_msg.save()
+			delete_all_sms()
 			return str(store_msg.id)+";"+"1"		#id;saved
 		else:
+			unknown_contact = Contact.objects.create(user=module_user,phone_number=from_contact,name=from_contact,original_name=from_contact,slug=from_contact+str(module_user))
+			unknown_contact.unknown = True
+			store_msg.from_contact = unknown_contact
 			store_msg.unknown_contact = True
 			store_msg.unknown_mobile = from_contact
 			store_msg.save()
+			unknown_contact.save()
+			delete_all_sms()
 			return str(store_msg.id)+";"+"1"		#id;saved
 	else:
+		delete_all_sms()
 		return "0"+";"+"0"
+
+def delete_all_sms():
+	connect_to_port()
+	port.write("AT+CMGD=1,4\r".encode())
+	time.sleep(1)
+	data=port.read(50)
+	flag = str(data).find("OK")
+	if flag>=0:
+		return True
+	else:
+		return False

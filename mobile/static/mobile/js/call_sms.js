@@ -108,7 +108,6 @@ function incoming_call(flag,number,name,photo) {
     });
 
     $('#acceptBtn').on('click', function(e) {
-      $('.call').toggleClass('is-accepted');
       receive_call();
       return e.preventDefault();
     });
@@ -136,6 +135,7 @@ function outgoing_call(flag,number,name,photo) {
 }
 
 function receive_call(){
+  callModal.style.display = "block";
       $.ajax({
         type: 'GET',
         url: "http://localhost:8000/mobile/receive_call/",
@@ -164,6 +164,7 @@ function receive_call(){
             check_incoming_call_sms();
           }
           else {
+            callModal.style.display = "none";
             check_incoming_call_sms();
           }
       });
@@ -187,11 +188,12 @@ function receive_call(){
 function incoming_sms(flag,number,name,slug) {
   smsModal.style.display = "block";
   if (flag) {
-    sms_from.innerHTML = name + "::" +numberl;
+    sms_from.innerHTML = name + "::" +number;
     chatroom_url.href="http://localhost:8000/mobile/message/"+slug+"/"
   }
   else {
     sms_from.innerHTML = number
+    chatroom_url.href="http://localhost:8000/mobile/message/"+slug+"/"
   }
 }
 

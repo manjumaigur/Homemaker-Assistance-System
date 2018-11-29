@@ -15,6 +15,7 @@ class Contact(models.Model):
 	original_name = models.CharField(max_length=50, default='')
 	avatar = models.FileField(null=True, default='default_avatar.png', help_text="upload jpg, jpeg, png files only", validators=[FileExtensionValidator(['jpg','png','jpeg'])])
 	phone_number = models.CharField(max_length=13, default='', unique=False)
+	unknown = models.BooleanField(default=False)
 	slug = models.SlugField(unique=True, max_length=500)
 
 	def get_absolute_url(self):
