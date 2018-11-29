@@ -108,6 +108,7 @@ function incoming_call(flag,number,name,photo) {
     });
 
     $('#acceptBtn').on('click', function(e) {
+      $('.call').toggleClass('is-accepted');
       receive_call();
       return e.preventDefault();
     });
@@ -164,7 +165,6 @@ function receive_call(){
             check_incoming_call_sms();
           }
           else {
-            callModal.style.display = "none";
             check_incoming_call_sms();
           }
       });
