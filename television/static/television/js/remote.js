@@ -11,7 +11,7 @@ $.ajaxSetup({
   }
 });
 
-function buttonClicked(btn,remoteSlug) {
+function buttonClickedremote(btn,remoteSlug) {
 		var screenClass = document.getElementById("remote-typed");
 		screenClass.innerHTML = btn;
 		sendBtn(btn,remoteSlug)

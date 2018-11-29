@@ -10,21 +10,26 @@ $.ajaxSetup({
     }
   }
 });
-function check_incoming_call_sms(){
-  $.ajax({
-    type: 'GET',
-    url: "http://localhost:8000/mobile/check-incoming-call-sms/",
-    }).done(function (data) {
-      if (data.call_coming) {
-        incoming_call(data.contact_in_phonebook,data.contact_number,data.contact_name,data.contact_photo);
-      }   
-      else if (data.message_coming) {
-        incoming_sms(data.contact_in_phonebook,data.contact_number,data.contact_name,data.smsSlug)
-      }
-      else {
-        check_incoming_call_sms();
-      }
-  });
+function check_incoming_call_sms(flag){
+  if (flag){
+    $.ajax({
+      type: 'GET',
+      url: "http://localhost:8000/mobile/check-incoming-call-sms/",
+      }).done(function (data) {
+        if (data.call_coming) {
+          incoming_call(data.contact_in_phonebook,data.contact_number,data.contact_name,data.contact_photo);
+        }   
+        else if (data.message_coming) {
+          incoming_sms(data.contact_in_phonebook,data.contact_number,data.contact_name,data.smsSlug);
+        }
+        else {
+          check_incoming_call_sms(1);
+        }
+    });
+  }
+  else {
+    sendSMS();
+  }
 }
 
 var callModal = document.getElementById('callModal');
@@ -108,14 +113,12 @@ function incoming_call(flag,number,name,photo) {
     });
 
     $('#acceptBtn').on('click', function(e) {
-      $('.call').toggleClass('is-accepted');
       receive_call();
       return e.preventDefault();
     });
 }
 
 function outgoing_call(flag,number,name,photo) {
-  $('.call').toggleClass('is-accepted');
     callModal.style.display = "block";
     abortBtn.style.display = "block";
     declineBtn.style.display = "none";
@@ -137,7 +140,6 @@ function outgoing_call(flag,number,name,photo) {
 }
 
 function receive_call(){
-  
   callModal.style.display = "block";
       $.ajax({
         type: 'GET',
@@ -151,7 +153,7 @@ function receive_call(){
           }
           else {
             callModal.style.display = "none";
-            check_incoming_call_sms();
+            check_incoming_call_sms(1);
           }
       });
     }
@@ -164,10 +166,11 @@ function receive_call(){
           if (data.success) {
             callModal.style.display = "none";
             abortBtn.style.display = "none";
-            check_incoming_call_sms();
+            check_incoming_call_sms(1);
           }
           else {
-            check_incoming_call_sms();
+            callModal.style.display="none";
+            check_incoming_call_sms(1);
           }
       });
     }
@@ -182,7 +185,7 @@ function receive_call(){
           else {
             callModal.style.display = "none";
             abortBtn.style.display = "none";
-            check_incoming_call_sms();
+            check_incoming_call_sms(1);
           }
       });
     }
@@ -201,12 +204,12 @@ function incoming_sms(flag,number,name,slug) {
 
 closeSMSbtn.onclick = function() {
     smsModal.style.display = "none";
-    check_incoming_call_sms();
+    check_incoming_call_sms(1);
 }
 
 $('#sendSMS').on('submit', function(event){
     event.preventDefault();
-    sendSMS();
+    check_incoming_call_sms(0);
 });
 
 function sendSMS(){

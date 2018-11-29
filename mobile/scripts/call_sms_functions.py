@@ -91,6 +91,7 @@ def send_sms(module_user,mobile_number,text):
 	port.write(text.encode())
 	time.sleep(1)
 	port.write('\x1A'.encode())
+	time.sleep(1)
 	while True:
 		data = port.read(40)
 		flag = str(data).find("+CMGS:")
