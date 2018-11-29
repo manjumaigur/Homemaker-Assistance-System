@@ -115,6 +115,7 @@ function incoming_call(flag,number,name,photo) {
 }
 
 function outgoing_call(flag,number,name,photo) {
+  $('.call').toggleClass('is-accepted');
     callModal.style.display = "block";
     abortBtn.style.display = "block";
     declineBtn.style.display = "none";
@@ -136,6 +137,7 @@ function outgoing_call(flag,number,name,photo) {
 }
 
 function receive_call(){
+  
   callModal.style.display = "block";
       $.ajax({
         type: 'GET',
